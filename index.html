@@ -1,865 +1,356 @@
 <!DOCTYPE html>
-<html lang="bs">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>N CARS - Premium Polovna Vozila | Zenica</title>
-  <meta name="description" content="N Cars Zenica - Uvoz, transport i prodaja premium polovnih vozila iz EU."/>
-  <meta name="theme-color" content="#D4A853"/>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet"/>
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <style>
-    :root{
-      --red:#D4A853;--red-hover:#B8860B;--red-light:rgba(212,168,83,0.1);--red-glow:rgba(212,168,83,0.15);
-      --white:#FFFFFF;--off-white:#0A0A0A;
-      --g50:#1A1A1A;--g100:#151515;--g200:#1E1E1E;--g300:#333;--g400:#555;--g500:#777;--g600:#A0A0A0;--g700:#D1D5DB;--g800:#EDEDED;--g900:#F2F2F2;
-      --green:#059669;--amber:#D97706;--blue:#2563EB;--sold:#9CA3AF;
-      --font-h:'Outfit',sans-serif;--font-b:'Inter',sans-serif;--font-m:'JetBrains Mono',monospace;
-      --ease:cubic-bezier(0.25,1,0.5,1);--ease-expo:cubic-bezier(0.16,1,0.3,1);
-      --shadow-sm:0 1px 2px rgba(0,0,0,0.05);--shadow-md:0 4px 12px rgba(0,0,0,0.07);--shadow-lg:0 12px 24px rgba(0,0,0,0.10);
-      --r-sm:6px;--r-md:8px;--r-lg:12px;--r-xl:16px;--r-pill:9999px;
-    }
-    *{margin:0;padding:0;box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{font-family:var(--font-b);background:var(--off-white);color:var(--g600);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-    img{max-width:100%;display:block}a{text-decoration:none;color:inherit}
-    button{font-family:inherit;border:none;background:none;cursor:pointer;color:inherit}
-    input,select,textarea{font-family:inherit;font-size:inherit}
-    ::selection{background:var(--red);color:#fff}
-    *:focus-visible{outline:2px solid var(--red);outline-offset:2px}
-    ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-thumb{background:var(--g300);border-radius:3px}
+<html lang="bs"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>N CARS Zenica</title><meta name="theme-color" content="#080808"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script><script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script><script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+:root{--bg:#080808;--s:#0E0E0E;--card:#131313;--brd:#1A1A1A;--gold:#D4A853;--gdim:rgba(212,168,83,0.1);--t:#F0F0F0;--m:#888;--d:#444;--cyan:#22D3EE;--orange:#F97316;--f:'Outfit',sans-serif;--mono:'Space Grotesk',sans-serif;--e:cubic-bezier(0.16,1,0.3,1)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:var(--f);background:var(--bg);color:var(--t);-webkit-font-smoothing:antialiased;overflow-x:hidden}img{max-width:100%;display:block}a{text-decoration:none;color:inherit}button{font-family:inherit;border:none;background:none;cursor:pointer;color:inherit}::selection{background:var(--gold);color:#000}
+::-webkit-scrollbar{width:0;background:transparent}
 
-    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-    @keyframes slideLeft{from{transform:translateX(100%)}to{transform:translateX(0)}}
-    @keyframes raceLeft{from{transform:translateX(-100%)}to{transform:translateX(0)}}
-    @keyframes raceRight{from{transform:translateX(100%)}to{transform:translateX(0)}}
-    @keyframes splashSplitL{to{transform:translateX(-100%)}}
-    @keyframes splashSplitR{to{transform:translateX(100%)}}
-    @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
-    @keyframes heartPop{0%{transform:scale(1)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
-    @keyframes toastIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
-    @keyframes toastOut{to{opacity:0;transform:translateX(40px)}}
-    @keyframes spin{to{transform:rotate(360deg)}}
+/* MOBILE SCROLL GLOW */
+.scroll-glow-left,.scroll-glow-right{position:fixed;top:0;bottom:0;width:7vw;z-index:9500;pointer-events:none;opacity:0;transition:opacity 0.3s}
+.scroll-glow-left{left:0;background:linear-gradient(90deg,rgba(249,115,22,0.15),transparent)}
+.scroll-glow-right{right:0;background:linear-gradient(-90deg,rgba(34,211,238,0.15),transparent)}
+.scroll-glow-left.active,.scroll-glow-right.active{opacity:1}
 
-    .reveal{opacity:0;transform:translateY(24px);transition:all 0.6s var(--ease-expo)}
-    .reveal.visible{opacity:1;transform:translateY(0)}
+@keyframes sCircleIn{0%{clip-path:circle(0% at 50% 50%)}100%{clip-path:circle(75% at 50% 50%)}}
+@keyframes sLogo3D{0%{opacity:0;transform:perspective(800px) rotateY(90deg) scale(0.4);filter:blur(30px)}50%{opacity:1;filter:blur(0)}100%{transform:perspective(800px) rotateY(0) scale(1)}}
+@keyframes sNameReveal{0%{opacity:0;transform:translateY(20px) scaleY(1.3);filter:blur(8px)}100%{opacity:1;transform:translateY(0) scaleY(1);filter:blur(0)}}
+@keyframes sGoldLine{0%{transform:scaleX(0);opacity:0}100%{transform:scaleX(1);opacity:1}}
+@keyframes sTagFade{0%{opacity:0;letter-spacing:12px}100%{opacity:1;letter-spacing:5px}}
+@keyframes sCircleOut{to{clip-path:circle(0% at 50% 50%);opacity:0}}
+@keyframes sBarCount{from{width:100%}to{width:0}}
+@keyframes sParticleUp{0%{opacity:0;transform:translateY(0) scale(0.5)}25%{opacity:0.8}100%{opacity:0;transform:translateY(-150px) scale(1.8)}}
+@keyframes goldShimmer{0%{background-position:200% center}100%{background-position:-200% center}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes heroFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-6px) scale(1.005)}}
+@keyframes marqueeFlow{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes cardPerspective{from{opacity:0;transform:perspective(1000px) rotateX(5deg) translateY(35px)}to{opacity:1;transform:perspective(1000px) rotateX(0) translateY(0)}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
 
-    /* SPLASH */
-    #splash{position:fixed;inset:0;z-index:10001;display:flex;align-items:center;justify-content:center;overflow:hidden}
-    .splash-bg{position:absolute;inset:0;background:#0A0A0A}
-    .splash-left,.splash-right{position:absolute;top:0;bottom:0;width:50%;background:#0A0A0A;z-index:2}
-    .splash-left{left:0}.splash-right{right:0}
-    .splash-exiting .splash-left{animation:splashSplitL 0.5s var(--ease-expo) forwards}
-    .splash-exiting .splash-right{animation:splashSplitR 0.5s var(--ease-expo) forwards}
-    .splash-content{position:relative;z-index:3;text-align:center;color:#fff}
-    .splash-logo{width:140px;height:140px;opacity:0;transform:scale(0.5) rotateY(90deg);animation:splashLogoIn 1.2s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;margin:0 auto;border-radius:0;overflow:visible;background:transparent;padding:0;filter:drop-shadow(0 0 40px rgba(212,168,83,0.3))}
-    @keyframes splashLogoIn{0%{opacity:0;transform:scale(0.5) rotateY(90deg);filter:blur(20px)}60%{opacity:1;filter:blur(0)}100%{opacity:1;transform:scale(1) rotateY(0)}}
-    .splash-lines{display:flex;justify-content:center;gap:0;margin-top:20px;opacity:0;animation:fadeIn 0.3s 0.8s forwards}
-    .splash-line{height:2px;width:60px;background:#151515}
-    .splash-line-l{animation:raceLeft 0.4s var(--ease) 0.8s both}
-    .splash-line-r{animation:raceRight 0.4s var(--ease) 0.8s both}
-    .splash-name{font-family:var(--font-h);font-weight:700;font-size:clamp(20px,4vw,28px);letter-spacing:0.15em;margin-top:16px;opacity:0;transform:translateY(20px);animation:fadeUp 0.4s var(--ease) 1.1s forwards}
-    .splash-tagline{font-weight:300;font-size:13px;letter-spacing:0.1em;margin-top:8px;opacity:0;animation:fadeIn 0.3s 1.4s forwards}
-    .splash-exiting .splash-content{opacity:0;transition:opacity 0.2s}
+/* SPLASH */
+#splash{position:fixed;inset:0;z-index:10001;background:radial-gradient(ellipse at 50% 40%,#141210 0%,#080808 60%,#050505 100%);display:flex;align-items:center;justify-content:center;clip-path:circle(75% at 50% 50%);animation:sCircleIn 1.5s var(--e) forwards;overflow:hidden}
+#splash.out{animation:sCircleOut 0.9s var(--e) forwards}
+.s-part{position:absolute;border-radius:50%;background:var(--gold);pointer-events:none}
+.s-center{position:relative;z-index:2;text-align:center;perspective:1200px}
+.s-logo{width:160px;height:160px;margin:0 auto 36px;opacity:0;transform-style:preserve-3d;animation:sLogo3D 1.4s var(--e) 0.5s forwards}
+.s-logo img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 50px rgba(212,168,83,0.35)) drop-shadow(0 20px 40px rgba(0,0,0,0.5))}
+.s-gold-line{width:180px;height:1.5px;margin:0 auto 28px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);animation:sGoldLine 0.7s var(--e) 1.6s forwards}
+.s-name{font-weight:900;font-size:clamp(40px,10vw,72px);letter-spacing:0.12em;opacity:0;animation:sNameReveal 0.9s var(--e) 1.8s forwards;background:linear-gradient(90deg,#F0F0F0 20%,#D4A853 50%,#F0F0F0 80%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:sNameReveal 0.9s var(--e) 1.8s forwards,goldShimmer 4s linear 2.6s infinite}
+.s-tag{font-weight:300;font-size:clamp(10px,1.5vw,13px);color:var(--m);letter-spacing:12px;text-transform:uppercase;margin-top:14px;opacity:0;animation:sTagFade 0.7s var(--e) 2.5s forwards}
+.s-bar{position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--orange),var(--gold),var(--cyan));animation:sBarCount 4s linear forwards}
 
-    /* SCROLL PROGRESS */
-    #scroll-prog{position:fixed;top:0;left:0;height:3px;background:var(--red);z-index:9999;width:0%;transition:width 0.08s linear}
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;transition:all 0.5s var(--e);padding:18px 0}
+.nav.solid{background:rgba(8,8,8,0.93);backdrop-filter:blur(28px);padding:12px 0;border-bottom:1px solid var(--brd)}
+.nav-in{max-width:1400px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between}
+.n-brand{display:flex;align-items:center;gap:12px}.n-brand img{height:36px}.n-brand span{font-weight:800;font-size:17px;letter-spacing:4px}
+.n-links{display:flex;gap:36px}.n-link{color:var(--m);font-size:12px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;transition:all 0.3s;position:relative;padding:6px 0}
+.n-link::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:1.5px;background:var(--gold);transform:scaleX(0);transition:transform 0.4s var(--e)}.n-link:hover{color:var(--gold)}.n-link:hover::after{transform:scaleX(1)}
+.n-right{display:flex;gap:10px;align-items:center}
+.n-icon{width:42px;height:42px;border-radius:50%;border:1px solid var(--brd);display:flex;align-items:center;justify-content:center;font-size:17px;transition:all 0.3s var(--e)}
+.n-icon:hover{border-color:var(--gold);background:var(--gdim);transform:scale(1.08)}
+.n-cta{padding:10px 22px;background:var(--gold);color:#000;font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;border-radius:8px;transition:all 0.3s}.n-cta:hover{background:#E8BC6A;box-shadow:0 4px 18px rgba(212,168,83,0.3)}
+.n-ham{display:none;width:42px;height:42px;flex-direction:column;gap:6px;align-items:center;justify-content:center}
+.n-ham span{width:20px;height:1.5px;background:var(--t);transition:all 0.3s}.n-ham.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}.n-ham.open span:nth-child(2){opacity:0}.n-ham.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
 
-    /* NAV */
-    .nav{position:sticky;top:0;z-index:100;background:#0A0A0A;border-bottom:1px solid var(--g200);transition:box-shadow 0.3s var(--ease)}
-    .nav.scrolled{box-shadow:0 4px 12px rgba(0,0,0,0.06)}
-    .nav-inner{max-width:1280px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:32px}
-    .nav-brand{display:flex;align-items:center;gap:10px}
-    .nav-brand img{height:36px;width:36px;object-fit:contain;border-radius:50%}
-    .nav-brand span{font-family:var(--font-h);font-weight:700;font-size:16px;color:var(--g900);letter-spacing:0.05em}
-    .nav-links{display:flex;gap:24px;list-style:none;flex:1}
-    .nav-link{position:relative;color:var(--g500);font-size:13px;font-weight:500;padding:6px 0;transition:color 0.2s;cursor:pointer;background:none;border:none;font-family:inherit}
-    .nav-link::after{content:'';position:absolute;bottom:-2px;left:0;width:100%;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform 0.3s var(--ease)}
-    .nav-link:hover,.nav-link.active{color:var(--red)}
-    .nav-link:hover::after,.nav-link.active::after{transform:scaleX(1)}
-    .nav-actions{display:flex;gap:8px;align-items:center}
-    .nav-circle{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all 0.3s var(--ease);box-shadow:0 2px 8px rgba(0,0,0,0.12)}
-    .nav-circle.red{background:var(--red);color:#fff}.nav-circle.red:hover{background:var(--red-hover);transform:scale(1.08);box-shadow:0 4px 14px rgba(212,168,83,0.35)}
-    .nav-circle.green{background:#25D366;color:#fff}.nav-circle.green:hover{background:#20BD5A;transform:scale(1.08);box-shadow:0 4px 14px rgba(37,211,102,0.35)}
-    .nav-circle.gray{background:var(--g100);color:var(--g500)}.nav-circle.gray:hover{background:var(--g200)}
-    .nav-toggle{display:none;flex-direction:column;gap:5px;padding:8px}
-    .nav-toggle span{display:block;width:20px;height:2px;background:var(--red);transition:all 0.3s var(--ease)}
-    .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-    .nav-toggle.open span:nth-child(2){opacity:0}
-    .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-    .nav-drawer{position:fixed;top:0;right:0;bottom:0;width:80vw;max-width:340px;background:#fff;z-index:200;transform:translateX(100%);transition:transform 0.3s var(--ease-expo);display:flex;flex-direction:column;box-shadow:-8px 0 24px rgba(0,0,0,0.1)}
-    .nav-drawer::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--red)}
-    .nav-drawer.open{transform:translateX(0)}
-    .nav-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:199;opacity:0;pointer-events:none;transition:opacity 0.3s}
-    .nav-backdrop.open{opacity:1;pointer-events:auto}
-    .drawer-header{padding:20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--g200)}
-    .drawer-close{width:36px;height:36px;border-radius:8px;background:var(--g100);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--g500)}
-    .drawer-links{flex:1;padding:12px 0}
-    .drawer-link{display:block;padding:14px 24px;font-size:15px;font-weight:500;color:var(--g700);min-height:48px;transition:all 0.2s}
-    .drawer-link:hover{background:var(--g50);color:var(--red)}
-    .drawer-footer{padding:16px;border-top:1px solid var(--g200);display:flex;gap:10px}
+/* MOBILE OVERLAY */
+.m-ov{position:fixed;inset:0;z-index:199;background:rgba(8,8,8,0.97);backdrop-filter:blur(30px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;opacity:0;pointer-events:none;transition:all 0.4s var(--e)}.m-ov.open{opacity:1;pointer-events:auto}
+.m-ov a{font-size:22px;font-weight:700;letter-spacing:5px;color:var(--m);transition:all 0.3s}.m-ov a:hover{color:var(--gold)}
 
-    /* HERO */
-    .hero{min-height:85vh;position:relative;display:flex;align-items:center;overflow:hidden;background:var(--g900)}
-    .hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=2400&q=85') center/cover;opacity:0.35}
-    .hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(17,24,39,0.9) 0%,rgba(17,24,39,0.65) 50%,rgba(17,24,39,0.4) 100%)}
-    .hero-content{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:120px 24px 80px;width:100%}
-    .hero-warranty{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:rgba(255,255,255,0.08);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.15);border-radius:var(--r-pill);color:#fff;font-size:13px;font-weight:500;margin-bottom:24px;opacity:0;animation:fadeUp 0.6s var(--ease-expo) 0.3s forwards}
-    .hero-title{font-family:var(--font-h);font-weight:700;font-size:clamp(32px,6vw,56px);color:#fff;line-height:1.1;max-width:700px;margin-bottom:20px}
-    .hero-title span{display:inline-block;opacity:0;transform:translateY(30px);animation:fadeUp 0.7s var(--ease-expo) forwards}
-    .hero-title span:nth-child(1){animation-delay:0.4s}
-    .hero-title span:nth-child(2){animation-delay:0.5s}
-    .hero-title span:nth-child(3){animation-delay:0.6s}
-    .hero-title span:nth-child(4){animation-delay:0.7s}
-    .hero-sub{font-weight:300;font-size:clamp(14px,1.3vw,17px);color:rgba(255,255,255,0.75);max-width:550px;line-height:1.6;margin-bottom:32px;opacity:0;animation:fadeUp 0.6s var(--ease-expo) 0.8s forwards}
-    .hero-stats{display:flex;gap:28px;margin-bottom:36px;opacity:0;animation:fadeUp 0.6s var(--ease-expo) 1s forwards}
-    .hero-stat{position:relative;padding-right:28px}
-    .hero-stat:not(:last-child)::after{content:'';position:absolute;right:0;top:10%;height:80%;width:1px;background:rgba(255,255,255,0.2)}
-    .hero-stat-num{font-family:var(--font-h);font-weight:700;font-size:1.4rem;color:#fff}
-    .hero-stat-label{font-size:11px;font-weight:400;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.05em;margin-top:2px}
-    .hero-btns{display:flex;gap:12px;flex-wrap:wrap;opacity:0;animation:fadeUp 0.6s var(--ease-expo) 1.1s forwards}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;font-size:13px;font-weight:600;border-radius:var(--r-md);transition:all 0.2s var(--ease);letter-spacing:0.03em}
-    .btn-red{background:var(--red);color:#fff}.btn-red:hover{background:var(--red-hover);box-shadow:0 4px 14px var(--red-glow)}
-    .btn-white{border:1px solid rgba(255,255,255,0.4);color:#fff;background:transparent}.btn-white:hover{background:#fff;color:var(--g900)}
-    .btn-outline-red{border:1px solid var(--red);color:var(--red);background:transparent}.btn-outline-red:hover{background:var(--red);color:#fff}
-    .hero-scroll{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.4);animation:bounce 2s ease-in-out infinite;display:flex;flex-direction:column;align-items:center;gap:6px}
+/* HERO — Horizontal split layout */
+.hero{height:100vh;min-height:650px;position:relative;overflow:hidden;display:flex;align-items:center}
+.hero-img{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=2400&q=85') center/cover;opacity:0.3;filter:saturate(0.4) contrast(1.15)}
+.hero-grad{position:absolute;inset:0;background:linear-gradient(135deg,rgba(8,8,8,0.92) 0%,rgba(8,8,8,0.7) 40%,rgba(8,8,8,0.4) 70%,rgba(8,8,8,0.6) 100%)}
+.hero-in{position:relative;z-index:1;max-width:1400px;margin:0 auto;padding:0 32px;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero-text{max-width:560px}
+.hero-pill{display:inline-flex;align-items:center;gap:8px;padding:6px 18px;border:1px solid rgba(212,168,83,0.3);border-radius:40px;color:var(--gold);font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;margin-bottom:28px;opacity:0;animation:fadeUp 0.7s var(--e) 0.2s forwards}
+.hero-h{font-weight:900;font-size:clamp(36px,5.5vw,68px);line-height:1.02;letter-spacing:-0.03em;margin-bottom:20px;opacity:0;animation:fadeUp 0.8s var(--e) 0.4s forwards}
+.hero-h em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-p{font-weight:300;font-size:clamp(14px,1.3vw,17px);color:var(--m);line-height:1.75;margin-bottom:36px;opacity:0;animation:fadeUp 0.7s var(--e) 0.6s forwards}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;opacity:0;animation:fadeUp 0.7s var(--e) 0.8s forwards}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 32px;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border-radius:10px;transition:all 0.3s var(--e)}
+.btn-g{background:var(--gold);color:#000}.btn-g:hover{background:#E8BC6A;transform:translateY(-3px);box-shadow:0 10px 32px rgba(212,168,83,0.25)}
+.btn-o{border:1px solid var(--brd);color:var(--t)}.btn-o:hover{border-color:var(--gold);color:var(--gold)}
+.hero-visual{position:relative;opacity:0;animation:fadeUp 0.8s var(--e) 1s forwards}
+.hero-card{background:var(--card);border:1px solid var(--brd);border-radius:20px;padding:28px;animation:heroFloat 8s ease-in-out infinite}
+.hero-card-stat{display:flex;justify-content:space-between;margin-bottom:20px}
+.hcs{text-align:center;flex:1}
+.hcs-n{font-family:var(--mono);font-weight:700;font-size:28px;color:var(--gold)}
+.hcs-l{font-size:9px;color:var(--d);letter-spacing:2px;text-transform:uppercase;margin-top:4px}
+.hero-card-divider{width:1px;background:var(--brd);margin:0 16px}
+.hero-card-brands{display:flex;gap:8px;flex-wrap:wrap}
+.hcb{padding:6px 14px;background:var(--bg);border:1px solid var(--brd);border-radius:8px;font-size:11px;font-weight:500;color:var(--m);transition:all 0.2s}
+.hcb:hover{border-color:var(--gold);color:var(--gold)}
+.hero-scroll{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);color:var(--d);animation:bounce 2.5s ease-in-out infinite;text-align:center;z-index:1}
+.hero-scroll span{font-size:8px;letter-spacing:4px;text-transform:uppercase;display:block;margin-top:6px}
 
-    /* SEARCH BAR */
-    .search-bar{max-width:1200px;margin:-36px auto 0;position:relative;z-index:10;padding:0 24px}
-    .search-card{background:#fff;border-radius:var(--r-xl);box-shadow:var(--shadow-lg);padding:20px;border:1px solid var(--g200)}
-    .search-row{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr auto;gap:10px}
-    .search-input,.search-select{padding:12px 14px;border:1px solid var(--g300);border-radius:var(--r-md);font-size:14px;background:#fff;color:var(--g800);transition:all 0.2s;height:46px}
-    .search-input:focus,.search-select:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px var(--red-glow)}
-    .search-select{-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%239CA3AF' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;cursor:pointer}
-    .search-btn{padding:12px 22px;background:var(--red);color:#fff;border-radius:var(--r-md);font-weight:600;font-size:14px;height:46px;display:flex;align-items:center;gap:6px;transition:all 0.2s;white-space:nowrap}
-    .search-btn:hover{background:var(--red-hover)}
-    .search-count{text-align:center;font-size:13px;color:var(--g400);margin-top:12px}
+/* MARQUEE */
+.mq{overflow:hidden;border-top:1px solid var(--brd);border-bottom:1px solid var(--brd);padding:14px 0;white-space:nowrap;background:var(--s)}
+.mq-track{display:inline-block;animation:marqueeFlow 25s linear infinite}
+.mq-item{display:inline;font-size:12px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--d);margin:0 32px}
+.mq-dot{display:inline-block;width:3px;height:3px;border-radius:50%;background:var(--gold);vertical-align:middle;margin:0 32px}
 
-    /* SECTIONS */
-    .section{padding:80px 24px}.section-alt{background:var(--g100)}
-    .section-container{max-width:1280px;margin:0 auto}
-    .section-header{text-align:center;margin-bottom:48px}
-    .section-title{font-family:var(--font-h);font-weight:700;font-size:clamp(24px,3.5vw,36px);color:var(--g900);margin-bottom:10px}
-    .section-subtitle{font-size:15px;color:var(--g500);max-width:500px;margin:0 auto}
+/* SECTION */
+.sec{padding:100px 32px}
+.sec-head{margin-bottom:56px}
+.sec-ey{font-size:10px;font-weight:600;color:var(--gold);letter-spacing:5px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:12px}
+.sec-ey::before{content:'';width:24px;height:1px;background:var(--gold)}
+.sec-t{font-weight:800;font-size:clamp(26px,4vw,42px);letter-spacing:-0.02em;line-height:1.15}
+.sec-sub{font-size:14px;color:var(--m);margin-top:10px;max-width:440px;line-height:1.6}
 
-    /* VEHICLE CARD */
-    .v-card{background:#fff;border:1px solid var(--g200);border-radius:var(--r-lg);overflow:hidden;transition:all 0.3s var(--ease);cursor:pointer}
-    .v-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
-    .v-card:hover .v-img{transform:scale(1.03)}
-    .v-card.sold-card{opacity:0.6}
-    .v-card.sold-card .v-img{filter:grayscale(30%)}
-    .v-img-wrap{position:relative;aspect-ratio:3/2;overflow:hidden;background:var(--g100)}
-    .v-img{width:100%;height:100%;object-fit:cover;background-size:cover;background-position:center;transition:transform 0.5s var(--ease)}
-    .v-ribbon{position:absolute;top:14px;right:-30px;background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:4px 36px;transform:rotate(45deg);letter-spacing:0.05em;text-transform:uppercase;box-shadow:0 2px 6px rgba(0,0,0,0.15);z-index:1}
-    .v-ribbon.arriving{background:var(--amber)}.v-ribbon.new{background:var(--blue)}.v-ribbon.sold{background:var(--sold)}
-    .v-status{position:absolute;bottom:10px;left:10px;display:flex;align-items:center;gap:6px;padding:4px 10px;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);border-radius:var(--r-pill);font-size:11px;font-weight:600;color:#fff}
-    .v-status-dot{width:7px;height:7px;border-radius:50%}
-    .v-body{padding:16px}
-    .v-title{font-family:var(--font-h);font-weight:600;font-size:15px;color:var(--g800);margin-bottom:2px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .v-trim{font-size:13px;color:var(--g400);margin-bottom:10px}
-    .v-specs{display:flex;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--g500);margin-bottom:12px}
-    .v-spec{display:flex;align-items:center;gap:3px}
-    .v-spec::after{content:'•';margin-left:5px;color:var(--g300)}
-    .v-spec:last-child::after{display:none}
-    .v-price-box{background:var(--g50);border-radius:var(--r-md);padding:10px 12px;margin-bottom:10px}
-    .v-price{font-family:var(--font-m);font-weight:700;font-size:1.3rem;color:var(--red)}
-    .v-price-vat{font-size:12px;color:var(--g400);margin-top:2px}
-    .v-link{color:var(--red);font-size:13px;font-weight:600;display:flex;align-items:center;gap:4px;justify-content:flex-end;transition:gap 0.2s}
-    .v-card:hover .v-link{gap:8px}
+/* FILTER ROW */
+.filters{display:flex;gap:8px;margin-bottom:36px;flex-wrap:wrap}
+.fchip{padding:9px 22px;border:1px solid var(--brd);background:transparent;color:var(--m);border-radius:40px;font-size:11px;font-weight:600;letter-spacing:0.5px;transition:all 0.25s var(--e);cursor:pointer}
+.fchip:hover{border-color:var(--gold);color:var(--gold)}.fchip.on{background:var(--gold);border-color:var(--gold);color:#000}
 
-    /* FEATURED SCROLL */
-    .feat-scroll{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 24px 20px;margin:0 -24px;scrollbar-width:thin}
-    .feat-scroll .v-card{flex:0 0 min(340px,80vw);scroll-snap-align:start}
+/* VEHICLE GRID — Masonry-like stagger */
+.vgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 
-    /* FLOATING CONTACT */
-    .float-contact{position:fixed;right:20px;bottom:100px;z-index:50;display:flex;flex-direction:column;gap:10px}
-    .float-btn{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 4px 16px rgba(0,0,0,0.2);transition:all 0.3s var(--ease)}
-    .float-btn.wa{background:#25D366}.float-btn.wa:hover{transform:translateX(-6px) scale(1.1);box-shadow:0 6px 20px rgba(37,211,102,0.4)}
-    .float-btn.ph{background:var(--red)}.float-btn.ph:hover{transform:translateX(-6px) scale(1.1);box-shadow:0 6px 20px rgba(212,168,83,0.4)}
+/* VEHICLE CARD */
+.vc{background:var(--card);border:1px solid var(--brd);border-radius:16px;overflow:hidden;cursor:pointer;transition:all 0.5s var(--e);position:relative}
+.vc::after{content:'';position:absolute;inset:-1px;border-radius:16px;background:linear-gradient(135deg,rgba(249,115,22,0.08),transparent 40%,transparent 60%,rgba(34,211,238,0.08));opacity:0;transition:opacity 0.4s;pointer-events:none}
+.vc:hover{transform:translateY(-10px);box-shadow:0 28px 70px rgba(0,0,0,0.5),0 0 0 1px rgba(212,168,83,0.15)}
+.vc:hover::after{opacity:1}
+.vc:hover .vc-img{transform:scale(1.07)}
+.vc:hover .vc-ov{opacity:1}
+.vc-imgwrap{position:relative;aspect-ratio:16/10;overflow:hidden;background:#0A0A0A}
+.vc-img{width:100%;height:100%;background-size:cover;background-position:center;transition:transform 0.7s var(--e)}
+.vc-ov{position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,8,8,0.95) 0%,transparent 45%);opacity:0;transition:opacity 0.4s;display:flex;align-items:flex-end;justify-content:space-between;padding:18px;z-index:2}
+.vc-ov-price{font-family:var(--mono);font-weight:700;font-size:20px;color:var(--gold)}
+.vc-ov-btn{padding:8px 18px;background:var(--gold);color:#000;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border-radius:8px}
+.vc-badge{position:absolute;top:14px;left:14px;padding:5px 14px;background:rgba(8,8,8,0.7);backdrop-filter:blur(14px);border:1px solid rgba(212,168,83,0.2);border-radius:40px;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);z-index:3}
+.vc-body{padding:20px}
+.vc-name{font-weight:700;font-size:15px;margin-bottom:6px;letter-spacing:0.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vc-meta{font-size:11px;color:var(--d);margin-bottom:14px;letter-spacing:0.5px}
+.vc-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.vc-tag{padding:4px 12px;background:rgba(255,255,255,0.03);border:1px solid var(--brd);border-radius:8px;font-size:10px;color:var(--m);font-weight:500}
+.vc-bottom{display:flex;justify-content:space-between;align-items:center}
+.vc-price{font-family:var(--mono);font-weight:700;font-size:20px;color:var(--gold)}
+.vc-link{font-size:11px;color:var(--d);transition:all 0.2s}.vc:hover .vc-link{color:var(--gold)}
 
-    /* BACK TO TOP */
-    #btt{position:fixed;bottom:32px;right:20px;width:44px;height:44px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;opacity:0;transform:translateY(20px);pointer-events:none;transition:all 0.3s var(--ease);z-index:49;box-shadow:var(--shadow-md)}
-    #btt.visible{opacity:1;transform:translateY(0);pointer-events:auto}
-    #btt:hover{background:var(--red-hover)}
+/* TRUST — Horizontal cards */
+.trust{padding:80px 32px;background:var(--s);border-top:1px solid var(--brd);border-bottom:1px solid var(--brd)}
+.trust-grid{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.trust-card{background:var(--card);border:1px solid var(--brd);border-radius:16px;padding:28px;text-align:center;transition:all 0.4s var(--e)}
+.trust-card:hover{transform:translateY(-6px);border-color:rgba(212,168,83,0.2);box-shadow:0 16px 40px rgba(0,0,0,0.3)}
+.trust-icon{width:52px;height:52px;margin:0 auto 16px;border-radius:14px;background:var(--gdim);border:1px solid rgba(212,168,83,0.15);display:flex;align-items:center;justify-content:center;font-size:22px;transition:all 0.3s}
+.trust-card:hover .trust-icon{background:var(--gold);transform:scale(1.08)}
+.trust-card:hover .trust-icon span{filter:brightness(0)}
+.trust-t{font-weight:700;font-size:15px;margin-bottom:8px;letter-spacing:0.3px}
+.trust-d{font-size:12px;color:var(--m);line-height:1.6}
 
-    /* VEHICLE DETAIL MODAL */
-    .detail-overlay{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);display:flex;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto}
-    .detail-modal{background:#fff;border-radius:var(--r-xl);width:100%;max-width:900px;overflow:hidden;box-shadow:0 25px 80px rgba(0,0,0,0.3);margin-bottom:40px;animation:fadeUp 0.4s var(--ease-expo)}
-    .detail-hero{position:relative;aspect-ratio:16/9;max-height:500px;overflow:hidden;background:var(--g100)}
-    .detail-hero img{width:100%;height:100%;object-fit:cover}
-    .detail-close{position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,0.5);backdrop-filter:blur(10px);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;transition:background 0.2s;z-index:1}
-    .detail-close:hover{background:var(--red)}
-    .detail-ribbon{position:absolute;top:16px;left:16px;padding:6px 14px;border-radius:var(--r-sm);color:#fff;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;z-index:1}
-    .detail-body{padding:32px}
-    .detail-title{font-family:var(--font-h);font-weight:700;font-size:clamp(22px,3vw,30px);color:var(--g900);margin-bottom:6px}
-    .detail-tags{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
-    .detail-tag{padding:4px 12px;background:var(--g100);color:var(--g600);border-radius:var(--r-pill);font-size:12px;font-weight:500}
-    .detail-price-card{background:var(--red-light);border-radius:var(--r-lg);padding:20px;margin-bottom:28px}
-    .detail-price-label{font-size:12px;color:var(--g500);margin-bottom:4px}
-    .detail-price-main{font-family:var(--font-m);font-weight:700;font-size:2rem;color:var(--red)}
-    .detail-price-vat{font-size:14px;color:var(--g500);margin-top:4px}
-    .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
-    .detail-specs{margin-bottom:28px}
-    .detail-specs h3{font-family:var(--font-h);font-weight:600;font-size:16px;color:var(--g800);margin-bottom:14px;display:flex;align-items:center;gap:8px}
-    .spec-table{width:100%}
-    .spec-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--g100);font-size:13px}
-    .spec-label{color:var(--g500)}
-    .spec-value{font-weight:600;color:var(--g800);text-align:right}
-    .detail-equip h3{font-family:var(--font-h);font-weight:600;font-size:16px;color:var(--g800);margin-bottom:14px}
-    .equip-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-    .equip-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--g600)}
-    .equip-check{color:var(--red);font-weight:700;font-size:14px}
-    .detail-desc{margin-top:28px;font-size:14px;color:var(--g600);line-height:1.7;border-top:1px solid var(--g200);padding-top:20px}
-    .detail-contact{margin-top:24px;display:flex;gap:10px}
-    .detail-contact .btn{flex:1;justify-content:center}
-    .detail-warranty{display:flex;align-items:center;gap:10px;padding:14px;background:var(--g50);border-radius:var(--r-md);margin-top:16px;font-size:13px;color:var(--g600)}
-    .detail-warranty-icon{color:var(--red);font-size:20px}
+/* CONTACT */
+.contact{padding:100px 32px;background:var(--bg)}
+.ct-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.3fr 1fr;gap:80px;align-items:start}
+.ct-left h2{font-weight:900;font-size:clamp(28px,4vw,44px);letter-spacing:-0.02em;margin-bottom:14px;line-height:1.1}
+.ct-left h2 em{font-style:normal;color:var(--gold)}
+.ct-left>p{color:var(--m);font-size:14px;line-height:1.7;margin-bottom:40px;max-width:400px}
+.ct-items{display:flex;flex-direction:column;gap:20px}
+.ct-item{display:flex;gap:16px;align-items:center}
+.ct-icon{width:50px;height:50px;border-radius:14px;background:var(--gdim);border:1px solid rgba(212,168,83,0.12);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;transition:all 0.3s}
+.ct-item:hover .ct-icon{background:var(--gold);transform:scale(1.05)}
+.ct-lb{font-size:9px;color:var(--d);letter-spacing:2px;text-transform:uppercase;margin-bottom:3px}
+.ct-v{font-size:14px}.ct-v a{color:var(--t);transition:color 0.2s}.ct-v a:hover{color:var(--gold)}
+.ct-form{background:var(--card);border:1px solid var(--brd);border-radius:20px;padding:36px}
+.ct-ft{font-weight:700;font-size:20px;margin-bottom:28px;letter-spacing:0.3px}
+.ct-ff{margin-bottom:18px}
+.ct-fl{font-size:9px;font-weight:600;color:var(--d);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:6px;display:block}
+.ct-fi{width:100%;padding:14px 18px;background:var(--bg);border:1px solid var(--brd);border-radius:12px;color:var(--t);font-size:14px;transition:all 0.3s;outline:none;font-family:inherit}
+.ct-fi:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,168,83,0.08)}.ct-fi::placeholder{color:var(--d)}
+.ct-fs{width:100%;padding:16px;background:var(--gold);color:#000;font-weight:700;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;border-radius:12px;transition:all 0.3s;border:none;cursor:pointer;margin-top:4px}.ct-fs:hover{background:#E8BC6A;box-shadow:0 8px 24px rgba(212,168,83,0.2)}
 
-    /* INVENTORY PAGE */
-    .inv-hero{position:relative;height:30vh;min-height:220px;background:var(--g900);display:flex;align-items:center;justify-content:center;text-align:center;padding:24px}
-    .inv-hero::before{content:'';position:absolute;top:0;right:0;width:40%;height:100%;background:linear-gradient(135deg,transparent,rgba(212,168,83,0.15))}
-    .inv-hero-content{position:relative;color:#fff}
-    .inv-tabs{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;justify-content:center}
-    .inv-tab{padding:8px 16px;border-radius:var(--r-pill);font-size:12px;font-weight:600;color:rgba(255,255,255,0.7);background:rgba(255,255,255,0.08);transition:all 0.2s;cursor:pointer}
-    .inv-tab.active{background:var(--red);color:#fff}
-    .inv-tab:hover:not(.active){background:rgba(255,255,255,0.15)}
-    .inv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1280px;margin:0 auto;padding:40px 24px}
-    .inv-empty{text-align:center;padding:60px 20px;color:var(--g400);grid-column:1/-1;font-size:15px}
-    .inv-load-more{display:block;margin:0 auto 60px;padding:12px 32px;border:1px solid var(--red);color:var(--red);border-radius:var(--r-md);font-weight:600;transition:all 0.2s;background:#151515}
-    .inv-load-more:hover{background:var(--red);color:#fff}
-    .inv-back{max-width:1280px;margin:0 auto;padding:16px 24px}
-    .inv-back a{color:var(--red);font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:6px;transition:gap 0.2s}
-    .inv-back a:hover{gap:10px}
+/* FOOTER */
+.foot{padding:40px 32px 20px;border-top:1px solid var(--brd);background:var(--s)}
+.foot-in{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.foot-b{display:flex;align-items:center;gap:10px}.foot-b img{height:26px}.foot-b span{font-weight:700;letter-spacing:3px;font-size:14px}
+.foot-m{text-align:center;font-size:10px;color:var(--d);line-height:1.8;letter-spacing:1px}
+.foot-s{display:flex;gap:8px}
 
-    /* WHY US */
-    .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
-    .why-card{text-align:center;padding:32px 20px}
-    .why-icon{width:56px;height:56px;border-radius:var(--r-lg);background:var(--red-light);color:var(--red);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 16px}
-    .why-title{font-family:var(--font-h);font-weight:600;font-size:17px;color:var(--g800);margin-bottom:8px}
-    .why-desc{font-size:14px;color:var(--g500);line-height:1.6}
+/* FLOATING */
+.flt{position:fixed;right:20px;bottom:100px;z-index:50;display:flex;flex-direction:column;gap:10px}
+.flt a{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;transition:all 0.3s var(--e);box-shadow:0 4px 16px rgba(0,0,0,0.3)}
+.flt .wa{background:#25D366}.flt .wa:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(37,211,102,0.3)}
+.flt .ph{background:var(--gold);color:#000}.flt .ph:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(212,168,83,0.3)}
+#btt{position:fixed;bottom:20px;right:20px;width:42px;height:42px;border-radius:12px;background:var(--card);border:1px solid var(--brd);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:16px;opacity:0;pointer-events:none;transition:all 0.3s;z-index:49}
+#btt.on{opacity:1;pointer-events:auto}#btt:hover{background:var(--gold);color:#000}
+#prog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--orange),var(--gold),var(--cyan));z-index:9998;width:0%}
 
-    /* FOOTER */
-    .footer{background:var(--g900);color:rgba(255,255,255,0.5);padding:60px 24px 24px}
-    .footer-inner{max-width:1280px;margin:0 auto}
-    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
-    .footer-brand{display:flex;align-items:center;gap:10px;margin-bottom:16px}
-    .footer-brand img{width:36px;height:36px;border-radius:50%}
-    .footer-brand-name{font-family:var(--font-h);font-weight:700;font-size:16px;color:#fff}
-    .footer-desc{font-size:13px;line-height:1.6;max-width:300px}
-    .footer-col h4{font-family:var(--font-h);font-weight:600;font-size:12px;color:#fff;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:16px}
-    .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
-    .footer-col a,.footer-col button{font-size:13px;transition:color 0.2s;padding:0;background:none;border:none;cursor:pointer;text-align:left;font-family:inherit;color:rgba(255,255,255,0.5)}
-    .footer-col a:hover,.footer-col button:hover{color:var(--red)}
-    .footer-bottom{padding-top:20px;border-top:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-between;font-size:11px;flex-wrap:wrap;gap:12px}
-    .footer-bottom-tag{display:flex;align-items:center;gap:6px}
-    .footer-bottom-dot{width:6px;height:6px;border-radius:50%;background:var(--red)}
+.reveal{opacity:0;transform:translateY(28px);transition:all 0.8s var(--e)}.reveal.vis{opacity:1;transform:translateY(0)}
 
-    /* ADMIN PANEL */
-    .admin-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0.6);backdrop-filter:blur(6px);display:flex;justify-content:flex-end}
-    .admin-panel{width:80vw;max-width:900px;background:#fff;height:100%;overflow-y:auto;box-shadow:-12px 0 40px rgba(0,0,0,0.2);animation:slideLeft 0.4s var(--ease-expo)}
-    .admin-panel::before{content:'';position:sticky;top:0;display:block;height:4px;background:var(--red);z-index:1}
-    .admin-header{padding:20px 24px;border-bottom:1px solid var(--g200);display:flex;align-items:center;justify-content:space-between;position:sticky;top:4px;background:#fff;z-index:1}
-    .admin-title{font-family:var(--font-h);font-weight:700;font-size:20px;color:var(--g900);display:flex;align-items:center;gap:10px}
-    .admin-badge{background:var(--red);color:#fff;padding:2px 8px;border-radius:var(--r-sm);font-size:10px;font-weight:700;letter-spacing:0.05em}
-    .admin-body{padding:24px}
-    .admin-tabs{display:flex;gap:8px;margin-bottom:24px;border-bottom:1px solid var(--g200);padding-bottom:12px}
-    .admin-tab{padding:8px 16px;border-radius:var(--r-md);font-size:13px;font-weight:600;color:var(--g500);transition:all 0.2s;cursor:pointer}
-    .admin-tab.active{background:var(--red);color:#fff}
-    .admin-field{margin-bottom:16px}
-    .admin-label{display:block;font-size:12px;font-weight:600;color:var(--g600);margin-bottom:6px}
-    .admin-input{width:100%;padding:10px 14px;border:1px solid var(--g300);border-radius:var(--r-md);font-size:14px;color:var(--g800);background:#fff;transition:all 0.2s}
-    .admin-input:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px var(--red-glow)}
-    .admin-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .admin-submit{width:100%;padding:14px;background:var(--red);color:#fff;border-radius:var(--r-md);font-weight:700;font-size:14px;transition:all 0.2s;margin-top:8px}
-    .admin-submit:hover{background:var(--red-hover)}
-    .admin-table{width:100%;border-collapse:collapse}
-    .admin-table th{text-align:left;padding:10px 12px;font-size:10px;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:0.05em;border-bottom:2px solid var(--g200)}
-    .admin-table td{padding:10px 12px;border-bottom:1px solid var(--g100);font-size:13px;vertical-align:middle}
-    .admin-table tr:hover{background:var(--g50)}
-    .admin-table img{width:50px;height:35px;object-fit:cover;border-radius:4px}
-    .admin-actions{display:flex;gap:6px}
-    .admin-act{padding:4px 8px;border-radius:var(--r-sm);font-size:11px;font-weight:600;transition:all 0.2s}
-    .admin-act.edit{background:var(--g100);color:var(--g600)}.admin-act.edit:hover{background:var(--blue);color:#fff}
-    .admin-act.sell{background:var(--red-light);color:var(--red)}.admin-act.sell:hover{background:var(--red);color:#fff}
-    .admin-act.del{background:var(--g100);color:var(--g400)}.admin-act.del:hover{background:var(--red);color:#fff}
-
-    /* PIN MODAL */
-    .pin-overlay{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;padding:20px}
-    .pin-modal{background:#fff;border-radius:var(--r-xl);padding:40px;width:100%;max-width:360px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
-    .pin-modal h3{font-family:var(--font-h);font-weight:700;font-size:20px;color:var(--g900);margin-bottom:8px}
-    .pin-modal p{font-size:13px;color:var(--g400);margin-bottom:24px}
-    .pin-input{width:160px;text-align:center;padding:14px;font-size:28px;letter-spacing:12px;font-family:var(--font-m);border:2px solid var(--g300);border-radius:var(--r-lg);background:var(--g50);color:var(--g900);margin:0 auto 16px;display:block}
-    .pin-input:focus{outline:none;border-color:var(--red)}
-    .pin-error{color:var(--red);font-size:12px;font-weight:600;margin-bottom:12px}
-    .pin-submit{padding:12px 32px;background:var(--red);color:#fff;border-radius:var(--r-md);font-weight:600;font-size:14px;transition:all 0.2s}
-    .pin-submit:hover{background:var(--red-hover)}
-    .pin-cancel{font-size:13px;color:var(--g400);margin-top:12px;cursor:pointer}
-    .pin-cancel:hover{color:var(--g600)}
-
-    /* TOAST */
-    .toast{position:fixed;top:80px;right:20px;background:#fff;border-left:4px solid var(--green);border-radius:var(--r-md);padding:14px 20px;font-size:13px;font-weight:600;color:var(--g800);box-shadow:var(--shadow-lg);z-index:700;animation:toastIn 0.3s var(--ease-expo);display:flex;align-items:center;gap:10px;max-width:340px}
-    .toast.error{border-left-color:var(--red)}
-
-    /* RESPONSIVE */
-    @media(max-width:1024px){
-      .hero-stats{flex-wrap:wrap;gap:16px}
-      .search-row{grid-template-columns:1fr 1fr}
-      .inv-grid{grid-template-columns:repeat(2,1fr)}
-      .why-grid{grid-template-columns:1fr}
-      .detail-grid{grid-template-columns:1fr}
-      .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
-    }
-    @media(max-width:768px){
-      .nav-links,.nav-actions .nav-circle.gray{display:none}
-      .nav-toggle{display:flex}
-      .hero{min-height:75vh}
-      .hero-btns{flex-direction:column;width:100%}
-      .hero-btns .btn{width:100%;justify-content:center}
-      .search-row{grid-template-columns:1fr}
-      .inv-grid{grid-template-columns:1fr;padding:24px 20px}
-      .section{padding:60px 20px}
-      .section-title{font-size:clamp(22px,5vw,28px)}
-      .detail-overlay{padding:20px 12px}
-      .detail-body{padding:20px}
-      .equip-grid{grid-template-columns:1fr}
-      .admin-panel{width:100%;max-width:100%}
-      .admin-row{grid-template-columns:1fr}
-      .footer-grid{grid-template-columns:1fr;gap:24px}
-      .float-contact{right:12px;bottom:80px}
-    }
-
-    @media(prefers-reduced-motion:reduce){
-      *,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important;scroll-behavior:auto!important}
-      #splash{display:none!important}
-    }
-  </style>
+@media(max-width:1024px){.vgrid{grid-template-columns:repeat(2,1fr)}.ct-grid{grid-template-columns:1fr}.hero-in{grid-template-columns:1fr}.hero-visual{display:none}.trust-grid{grid-template-columns:1fr;gap:16px}}
+@media(max-width:768px){.n-links,.n-cta{display:none}.n-ham{display:flex}.vgrid{grid-template-columns:1fr}.sec,.contact,.trust{padding:60px 20px}.nav-in{padding:0 20px}.hero-in{padding:0 20px}.foot-in,.foot{padding-left:20px;padding-right:20px}.filters{overflow-x:auto;flex-wrap:nowrap;padding-bottom:8px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}#splash{display:none!important}}
+</style>
 </head>
 <body>
-<div id="scroll-prog"></div>
+<div class="scroll-glow-left" id="glowL"></div>
+<div class="scroll-glow-right" id="glowR"></div>
+<div id="prog"></div>
 <div id="root"></div>
 <script src="logo.js"></script>
-<script src="car_images.js"></script>
 <script type="text/babel">
-const {useState,useEffect,useRef,useMemo,useCallback,memo}=React;
-
-/* ═══ REAL DATA FROM OLX.BA — SCRAPED DIRECTLY ═══ */
-const VEHICLES=[
-{id:'74287109',make:'Volkswagen',model:'Sharan',title:'VW SHARAN 2.0 103kw FACELIFT',year:2012,km:262329,fuel:'Dizel',kw:103,ks:140,trans:'Manual',color:'Crna',priceNoVAT:15500,priceVAT:15500,status:'na-lageru',featured:true,img:'https://d4n0y8dshd77z.cloudfront.net/listings/74287109/lg/img-1774612588-94e4bbca0e53.jpeg'},
-{id:'75338394',make:'Volkswagen',model:'Tiguan',title:'VW TIGUAN 2.0 125kw 4x4',year:2009,km:273090,fuel:'Dizel',kw:125,ks:170,trans:'Manual',color:'Plava',priceNoVAT:15800,priceVAT:15800,status:'na-lageru',featured:false,img:'https://d4n0y8dshd77z.cloudfront.net/listings/75338394/lg/img-1774517470-b62347dde536.jpeg'},
-{id:'74287830',make:'Volkswagen',model:'Sharan',title:'VW SHARAN DSG XENON PANORAMA',year:2014,km:230278,fuel:'Dizel',kw:103,ks:140,trans:'Automatik DSG',color:'Crna',priceNoVAT:19500,priceVAT:19500,status:'na-lageru',featured:true,img:'https://d4n0y8dshd77z.cloudfront.net/listings/74287830/lg/img-1774444333-4f0be56fe34e.jpeg'},
-{id:'74107299',make:'Volkswagen',model:'Passat CC',title:'VW PASSAT CC 4x4 LED DSG',year:2012,km:254695,fuel:'Dizel',kw:125,ks:170,trans:'Automatik DSG',color:'Crna',priceNoVAT:21000,priceVAT:21000,status:'na-lageru',featured:true,img:'https://d4n0y8dshd77z.cloudfront.net/listings/74107299/lg/img-1775479908-50be0b2dc80e.jpeg'},
-{id:'74917746',make:'Volkswagen',model:'Golf GTI',title:'VW GOLF 6 GTI 155kw DSG',year:2009,km:187034,fuel:'Benzin',kw:155,ks:211,trans:'Automatik DSG',color:'Bijela',priceNoVAT:18500,priceVAT:18500,status:'na-lageru',featured:true,img:'https://d4n0y8dshd77z.cloudfront.net/listings/74917746/lg/img-1773069395-f68908c17ad6.jpeg'},
-{id:'75314997',make:'Volkswagen',model:'Golf 6',title:'VW GOLF VI 2.0 STYLE',year:2009,km:213923,fuel:'Dizel',kw:81,ks:110,trans:'Manual',color:'Crna',priceNoVAT:11500,priceVAT:11500,status:'na-lageru',featured:false,img:'https://d4n0y8dshd77z.cloudfront.net/listings/75314997/lg/img-1774443184-c317cf46dcaf.jpeg'},
-{id:'73640921',make:'Volkswagen',model:'Touran',title:'VW TOURAN 2.0 103kW DSG XENON',year:2011,km:211469,fuel:'Dizel',kw:103,ks:140,trans:'Automatik DSG',color:'Siva',priceNoVAT:14500,priceVAT:14500,status:'na-lageru',featured:false,img:'https://d4n0y8dshd77z.cloudfront.net/listings/73640921/lg/img-1768667576-f70e84933909.jpeg'},
-{id:'74864542',make:'Volkswagen',model:'Polo',title:'VW POLO 1.6 TDI 77kw',year:2011,km:249695,fuel:'Dizel',kw:77,ks:105,trans:'Manual',color:'Siva',priceNoVAT:10500,priceVAT:10500,status:'na-lageru',featured:false,img:'https://d4n0y8dshd77z.cloudfront.net/listings/74864542/lg/img-1772885549-46ada39bf29b.jpeg'},
-{id:'72291400',make:'Citroen',model:'DS5',title:'CITROEN DS5 BI-XENON EURO6 133kW',year:2015,km:242500,fuel:'Dizel',kw:133,ks:181,trans:'Automatik',color:'Siva',priceNoVAT:20500,priceVAT:20500,status:'na-lageru',featured:true,img:'https://d4n0y8dshd77z.cloudfront.net/listings/72291400/lg/img-1763127372-f38f65b1d9b8.jpeg'},
-{id:'72261660',make:'MAN',model:'TGL 8 210',title:'KAMION MAN TGL 8 210',year:2009,km:660000,fuel:'Dizel',kw:0,ks:0,trans:'Manual',color:'Bijela',priceNoVAT:19500,priceVAT:19500,status:'na-lageru',featured:false,img:'https://d4n0y8dshd77z.cloudfront.net/listings/72261660/lg/img-1763043954-384dc3b6ae1b.jpeg'},
-{id:'74205191',make:'Volkswagen',model:'Golf 7',title:'VW GOLF VII 2017 EURO6',year:2017,km:231573,fuel:'Dizel',kw:81,ks:110,trans:'Manual',color:'Siva',priceNoVAT:16900,priceVAT:16900,status:'na-lageru',featured:true,img:'https://d4n0y8dshd77z.cloudfront.net/listings/74205191/lg/img-1770641490-02ff8761b4f9.jpeg'}
+const{useState,useEffect,useMemo,memo}=React;
+const L=typeof LOGO_DATA!=='undefined'?LOGO_DATA:'';
+const V=[
+{id:'74287109',make:'Volkswagen',model:'Sharan',title:'VW SHARAN 2.0 103kw FACELIFT',year:2012,km:262329,fuel:'Dizel',kw:103,trans:'Manual',price:15500,feat:true,img:'https://d4n0y8dshd77z.cloudfront.net/listings/74287109/lg/img-1774612588-94e4bbca0e53.jpeg'},
+{id:'75338394',make:'Volkswagen',model:'Tiguan',title:'VW TIGUAN 2.0 125kw 4x4',year:2009,km:273090,fuel:'Dizel',kw:125,trans:'Manual',price:15800,feat:false,img:'https://d4n0y8dshd77z.cloudfront.net/listings/75338394/lg/img-1774517470-b62347dde536.jpeg'},
+{id:'74287830',make:'Volkswagen',model:'Sharan',title:'VW SHARAN DSG XENON PANORAMA',year:2014,km:230278,fuel:'Dizel',kw:103,trans:'DSG',price:19500,feat:true,img:'https://d4n0y8dshd77z.cloudfront.net/listings/74287830/lg/img-1774444333-4f0be56fe34e.jpeg'},
+{id:'74107299',make:'Volkswagen',model:'Passat CC',title:'VW PASSAT CC 4x4 LED DSG',year:2012,km:254695,fuel:'Dizel',kw:125,trans:'DSG',price:21000,feat:true,img:'https://d4n0y8dshd77z.cloudfront.net/listings/74107299/lg/img-1775479908-50be0b2dc80e.jpeg'},
+{id:'74917746',make:'Volkswagen',model:'Golf GTI',title:'VW GOLF 6 GTI 155kw DSG',year:2009,km:187034,fuel:'Benzin',kw:155,trans:'DSG',price:18500,feat:true,img:'https://d4n0y8dshd77z.cloudfront.net/listings/74917746/lg/img-1773069395-f68908c17ad6.jpeg'},
+{id:'75314997',make:'Volkswagen',model:'Golf 6',title:'VW GOLF VI 2.0 STYLE',year:2009,km:213923,fuel:'Dizel',kw:81,trans:'Manual',price:11500,feat:false,img:'https://d4n0y8dshd77z.cloudfront.net/listings/75314997/lg/img-1774443184-c317cf46dcaf.jpeg'},
+{id:'73640921',make:'Volkswagen',model:'Touran',title:'VW TOURAN 2.0 103kW DSG XENON',year:2011,km:211469,fuel:'Dizel',kw:103,trans:'DSG',price:14500,feat:false,img:'https://d4n0y8dshd77z.cloudfront.net/listings/73640921/lg/img-1768667576-f70e84933909.jpeg'},
+{id:'74864542',make:'Volkswagen',model:'Polo',title:'VW POLO 1.6 TDI 77kw',year:2011,km:249695,fuel:'Dizel',kw:77,trans:'Manual',price:10500,feat:false,img:'https://d4n0y8dshd77z.cloudfront.net/listings/74864542/lg/img-1772885549-46ada39bf29b.jpeg'},
+{id:'72291400',make:'Citroen',model:'DS5',title:'CITROEN DS5 BI-XENON EURO6 133kW',year:2015,km:242500,fuel:'Dizel',kw:133,trans:'Automatik',price:20500,feat:true,img:'https://d4n0y8dshd77z.cloudfront.net/listings/72291400/lg/img-1763127372-f38f65b1d9b8.jpeg'},
+{id:'72261660',make:'MAN',model:'TGL 8 210',title:'KAMION MAN TGL 8 210',year:2009,km:660000,fuel:'Dizel',kw:0,trans:'Manual',price:19500,feat:false,img:'https://d4n0y8dshd77z.cloudfront.net/listings/72261660/lg/img-1763043954-384dc3b6ae1b.jpeg'},
+{id:'74205191',make:'Volkswagen',model:'Golf 7',title:'VW GOLF VII 2017 EURO6',year:2017,km:231573,fuel:'Dizel',kw:81,trans:'Manual',price:16900,feat:true,img:'https://d4n0y8dshd77z.cloudfront.net/listings/74205191/lg/img-1770641490-02ff8761b4f9.jpeg'}
 ];
+const fP=n=>n>0?n.toLocaleString('de-DE')+' KM':'Na upit';
+const fK=n=>n.toLocaleString('de-DE');
 
-// Clear stale data from old vehicle set
-if(localStorage.getItem('nCars_dataVersion')!=='v10'){
-  localStorage.removeItem('nCars_vehicles');
-  localStorage.removeItem('nCars_overrides');
-  localStorage.setItem('nCars_dataVersion','v10');
-}
-const getVehicles=()=>{
-  const added=JSON.parse(localStorage.getItem('nCars_vehicles')||'[]');
-  const overrides=JSON.parse(localStorage.getItem('nCars_overrides')||'{}');
-  const base=VEHICLES.map(v=>overrides[v.id]?{...v,...overrides[v.id]}:v);
-  return[...added,...base];
-};
-const saveOverride=(id,data)=>{const o=JSON.parse(localStorage.getItem('nCars_overrides')||'{}');o[id]=data;localStorage.setItem('nCars_overrides',JSON.stringify(o));};
-const addVehicle=(v)=>{const list=JSON.parse(localStorage.getItem('nCars_vehicles')||'[]');list.unshift(v);localStorage.setItem('nCars_vehicles',JSON.stringify(list));};
-const removeVehicle=(id)=>{let list=JSON.parse(localStorage.getItem('nCars_vehicles')||'[]');list=list.filter(v=>v.id!==id);localStorage.setItem('nCars_vehicles',JSON.stringify(list));};
-const fmtPrice=(n)=>n.toLocaleString('de-DE');
-const statusMap={'na-lageru':{label:'Na lageru',color:'var(--green)',ribbon:null},'u-dolasku':{label:'U dolasku',color:'var(--amber)',ribbon:'arriving'},'na-akciji':{label:'Na akciji',color:'var(--red)',ribbon:'sale'},'novo':{label:'Novo',color:'var(--blue)',ribbon:'new'},'prodano':{label:'Prodano',color:'var(--sold)',ribbon:'sold'}};
-const statusRibbonLabel={'na-akciji':'NA AKCIJI','u-dolasku':'U DOLASKU','novo':'NOVO','prodano':'PRODANO'};
-
-/* ═══ SPLASH ═══ */
 function Splash({onDone}){
-  const [exiting,setExiting]=useState(false);
-  useEffect(()=>{
-    const t1=setTimeout(()=>setExiting(true),3000);
-    const t2=setTimeout(onDone,3500);
-    return()=>{clearTimeout(t1);clearTimeout(t2);};
-  },[]);
-  return(
-    <div id="splash" className={exiting?'splash-exiting':''}>
-      <div className="splash-left"></div><div className="splash-right"></div>
-      <div className="splash-content">
-        <div className="splash-logo"><img src={typeof LOGO_DATA!=='undefined'?LOGO_DATA:''} alt="N CARS" style={{width:'100%',height:'100%',objectFit:'contain'}}/></div>
-        <div className="splash-lines"><div className="splash-line splash-line-l"></div><div className="splash-line splash-line-r"></div></div>
-        <div className="splash-name">N CARS</div>
-        <div className="splash-tagline">Uvoz · Transport · Prodaja Vozila</div>
-      </div>
-    </div>
-  );
+  const[ex,setEx]=useState(false);
+  useEffect(()=>{const t1=setTimeout(()=>setEx(true),3500);const t2=setTimeout(onDone,4300);return()=>{clearTimeout(t1);clearTimeout(t2)};},[]);
+  const pts=useMemo(()=>Array.from({length:35},(_,i)=>({i,l:Math.random()*100,s:2+Math.random()*5,d:Math.random()*3.5,du:2.5+Math.random()*3})),[]);
+  return(<div id="splash" className={ex?'out':''}>
+    <div style={{position:'absolute',inset:0,overflow:'hidden',pointerEvents:'none'}}>{pts.map(p=><div key={p.i} className="s-part" style={{position:'absolute',left:p.l+'%',bottom:0,width:p.s,height:p.s,opacity:0,animation:`sParticleUp ${p.du}s ease-out ${p.d}s infinite`}}/>)}</div>
+    <div className="s-center"><div className="s-logo"><img src={L} alt="N Cars"/></div><div className="s-gold-line"/><div className="s-name">N CARS</div><div className="s-tag">Uvoz &middot; Transport &middot; Prodaja Vozila</div></div>
+    <div className="s-bar"/>
+  </div>);
 }
 
-/* ═══ VEHICLE CARD ═══ */
-const VehicleCard=memo(({v,onClick,isAdmin,onAdminEdit})=>{
-  const st=statusMap[v.status]||statusMap['na-lageru'];
-  const ribbonLabel=statusRibbonLabel[v.status];
-  const isSold=v.status==='prodano';
-  return(
-    <div className={`v-card ${isSold?'sold-card':''}`} onClick={()=>window.open('https://olx.ba/artikal/'+v.id,'_blank')}>
-      <div className="v-img-wrap">
-        <div className="v-img" style={{backgroundImage:`url('${v.img}')`}}></div>
-        {ribbonLabel&&<div className={`v-ribbon ${st.ribbon||''}`}>{ribbonLabel}</div>}
-        <div className="v-status"><span className="v-status-dot" style={{background:st.color}}></span>{st.label}</div>
-        {isAdmin&&<button onClick={(e)=>{e.stopPropagation();onAdminEdit(v);}} style={{position:'absolute',top:10,left:10,width:28,height:28,borderRadius:'50%',background:'rgba(0,0,0,0.6)',color:'#fff',fontSize:12,display:'flex',alignItems:'center',justifyContent:'center',zIndex:1,border:'none',cursor:'pointer'}}>✏️</button>}
-      </div>
-      <div className="v-body">
-        <div className="v-title">{v.title}</div>
-        <div className="v-trim">{v.make} {v.model}</div>
-        <div className="v-specs">
-          <span className="v-spec">{v.year}</span>
-          <span className="v-spec">{fmtPrice(v.km)} km</span>
-          <span className="v-spec">{v.fuel}</span>
-          <span className="v-spec">{v.trans.split(' ')[0]}</span>
-        </div>
-        <div className="v-price-box">
-          <div className="v-price">{fmtPrice(v.priceNoVAT)} KM</div>
-          
-        </div>
-        <div className="v-link">Pogledaj na OLX.ba →</div>
-      </div>
+const Card=memo(({v,i})=>(
+  <div className="vc reveal" onClick={()=>window.open('https://olx.ba/artikal/'+v.id,'_blank')} style={{transitionDelay:i*0.06+'s'}}>
+    <div className="vc-imgwrap">
+      <div className="vc-img" style={{backgroundImage:`url('${v.img}')`}}/>
+      <div className="vc-badge">Na lageru</div>
+      <div className="vc-ov"><span className="vc-ov-price">{fP(v.price)}</span><span className="vc-ov-btn">Pogledaj &rarr;</span></div>
     </div>
-  );
-});
-
-/* ═══ VEHICLE DETAIL MODAL ═══ */
-function VehicleDetail({v,onClose}){
-  if(!v)return null;
-  const st=statusMap[v.status]||statusMap['na-lageru'];
-  const ribbonLabel=statusRibbonLabel[v.status];
-  useEffect(()=>{document.body.style.overflow='hidden';return()=>{document.body.style.overflow='';};},[]);
-  return(
-    <div className="detail-overlay" onClick={(e)=>{if(e.target===e.currentTarget)onClose();}}>
-      <div className="detail-modal">
-        <div className="detail-hero">
-          <img src={v.img} alt={v.title}/>
-          <button className="detail-close" onClick={onClose}>×</button>
-          {ribbonLabel&&<div className="detail-ribbon" style={{background:st.color==='var(--red)'?'#D4A853':st.color==='var(--amber)'?'#D97706':st.color==='var(--blue)'?'#2563EB':'#9CA3AF'}}>{ribbonLabel}</div>}
-        </div>
-        <div className="detail-body">
-          <h2 className="detail-title">{v.title}</h2>
-          <div className="detail-tags">
-            <span className="detail-tag">{v.year}</span>
-            <span className="detail-tag">{v.fuel}</span>
-            <span className="detail-tag">{v.trans}</span>
-            <span className="detail-tag">{v.drive}</span>
-          </div>
-          <div className="detail-price-card">
-            <div className="detail-price-label">Cijena</div>
-            <div className="detail-price-main">{fmtPrice(v.priceNoVAT)} KM</div>
-            
-          </div>
-          <div className="detail-grid">
-            <div className="detail-specs">
-              <h3>📋 Specifikacije</h3>
-              <div className="spec-table">
-                {[['Marka',v.make],['Model',v.model],['Godina',v.year],['Kilometraža',fmtPrice(v.km)+' km'],['Gorivo',v.fuel],['Zapremina',v.cc+' ccm'],['Snaga',v.kw+' kW / '+v.ks+' KS'],['Mjenjač',v.trans],['Pogon',v.drive],['Boja',v.color],['Vrata',v.doors]].map(([l,val])=>(
-                  <div className="spec-row" key={l}><span className="spec-label">{l}</span><span className="spec-value">{val}</span></div>
-                ))}
-              </div>
-            </div>
-            <div className="detail-equip">
-              <h3>✓ Oprema</h3>
-              <div className="equip-grid">
-                {(v.equip||[]).map((e,i)=><div className="equip-item" key={i}><span className="equip-check">✓</span>{e}</div>)}
-              </div>
-            </div>
-          </div>
-          {v.desc&&<div className="detail-desc"><p>{v.desc}</p><p style={{marginTop:12,fontSize:12,fontStyle:'italic',color:'var(--g400)'}}>Unatoč pažljivom unosu podataka zadržavamo pravo na pogreške u opisu vozila.</p></div>}
-          <div className="detail-contact">
-            <a href="https://wa.me/38762223064" className="btn btn-red" style={{background:'#25D366'}}>💬 WhatsApp</a>
-            <a href="tel:+38762223064" className="btn btn-red">📞 Pozovite</a>
-          </div>
-          <div className="detail-warranty"><span className="detail-warranty-icon">🛡️</span>Garancija na porijeklo i kilometražu</div>
-        </div>
-      </div>
+    <div className="vc-body">
+      <div className="vc-name">{v.title}</div>
+      <div className="vc-meta">{v.make} &middot; {v.model}</div>
+      <div className="vc-tags"><span className="vc-tag">{v.year}</span><span className="vc-tag">{fK(v.km)} km</span><span className="vc-tag">{v.fuel}</span><span className="vc-tag">{v.trans}</span></div>
+      <div className="vc-bottom"><span className="vc-price">{fP(v.price)}</span><span className="vc-link">OLX &rarr;</span></div>
     </div>
-  );
-}
+  </div>
+));
 
-/* ═══ ADMIN PANEL ═══ */
-function AdminPanel({onClose,vehicles,refresh}){
-  const [tab,setTab]=useState('manage');
-  const [form,setForm]=useState({make:'',model:'',title:'',year:2023,km:0,fuel:'Diesel',cc:1968,kw:110,trans:'Automatik',drive:'Prednji (FWD)',color:'',doors:5,priceNoVAT:0,status:'na-lageru',desc:'',img:'',equip:[],featured:false});
-  const [editId,setEditId]=useState(null);
-
-  const uf=(k,val)=>setForm(f=>({...f,[k]:val}));
-  const calcVAT=(p)=>Math.round(p*1.17);
-
-  const save=()=>{
-    const v={...form,id:editId||('custom-'+Date.now()),ks:Math.round(form.kw*1.36),priceVAT:calcVAT(form.priceNoVAT),title:form.title||(form.make+' '+form.model),img:form.img||'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=900&q=80'};
-    if(editId){
-      if(VEHICLES.find(x=>x.id===editId)){saveOverride(editId,v);}
-      else{let list=JSON.parse(localStorage.getItem('nCars_vehicles')||'[]');list=list.map(x=>x.id===editId?v:x);localStorage.setItem('nCars_vehicles',JSON.stringify(list));}
-    }else{addVehicle(v);}
-    refresh();setEditId(null);setTab('manage');
-    setForm({make:'',model:'',title:'',year:2023,km:0,fuel:'Diesel',cc:1968,kw:110,trans:'Automatik',drive:'Prednji (FWD)',color:'',doors:5,priceNoVAT:0,status:'na-lageru',desc:'',img:'',equip:[],featured:false});
-  };
-
-  const startEdit=(v)=>{setForm(v);setEditId(v.id);setTab('add');};
-  const markSold=(v)=>{if(!confirm('Označiti kao prodano?'))return;saveOverride(v.id,{status:'prodano'});refresh();};
-  const del=(v)=>{if(!confirm('Obrisati vozilo?'))return;if(VEHICLES.find(x=>x.id===v.id)){saveOverride(v.id,{status:'prodano'});}else{removeVehicle(v.id);}refresh();};
-
-  return(
-    <div className="admin-overlay" onClick={(e)=>{if(e.target===e.currentTarget)onClose();}}>
-      <div className="admin-panel">
-        <div className="admin-header">
-          <div className="admin-title">Admin Panel <span className="admin-badge">ADMIN</span></div>
-          <button onClick={onClose} style={{fontSize:24,color:'var(--g400)'}}>×</button>
-        </div>
-        <div className="admin-body">
-          <div className="admin-tabs">
-            <button className={`admin-tab ${tab==='manage'?'active':''}`} onClick={()=>setTab('manage')}>Upravljaj vozilima</button>
-            <button className={`admin-tab ${tab==='add'?'active':''}`} onClick={()=>{setTab('add');setEditId(null);}}>Dodaj vozilo</button>
-          </div>
-
-          {tab==='manage'&&(
-            <div style={{overflowX:'auto'}}>
-              <table className="admin-table">
-                <thead><tr><th>Slika</th><th>Naziv</th><th>Cijena</th><th>Status</th><th>Akcije</th></tr></thead>
-                <tbody>
-                  {vehicles.map(v=>(
-                    <tr key={v.id}>
-                      <td><img src={v.img} alt=""/></td>
-                      <td style={{fontWeight:600,color:'var(--g800)',maxWidth:200,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{v.title}</td>
-                      <td style={{fontFamily:'var(--font-m)',fontWeight:700,color:'var(--red)'}}>{fmtPrice(v.priceNoVAT)}</td>
-                      <td><span style={{padding:'3px 8px',borderRadius:'var(--r-pill)',fontSize:10,fontWeight:700,background:v.status==='prodano'?'var(--g200)':v.status==='na-akciji'?'var(--red-light)':'var(--g100)',color:v.status==='na-akciji'?'var(--red)':'var(--g600)'}}>{(statusMap[v.status]||{}).label||v.status}</span></td>
-                      <td><div className="admin-actions">
-                        <button className="admin-act edit" onClick={()=>startEdit(v)}>✏️</button>
-                        <button className="admin-act sell" onClick={()=>markSold(v)}>✅</button>
-                        <button className="admin-act del" onClick={()=>del(v)}>🗑️</button>
-                      </div></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-
-          {tab==='add'&&(
-            <div>
-              <h3 style={{fontFamily:'var(--font-h)',fontWeight:600,marginBottom:16,color:'var(--g800)'}}>{editId?'Uredi vozilo':'Dodaj novo vozilo'}</h3>
-              <div className="admin-row">
-                <div className="admin-field"><label className="admin-label">Marka</label><input className="admin-input" value={form.make} onChange={e=>uf('make',e.target.value)} placeholder="Volkswagen"/></div>
-                <div className="admin-field"><label className="admin-label">Model</label><input className="admin-input" value={form.model} onChange={e=>uf('model',e.target.value)} placeholder="Golf VIII"/></div>
-              </div>
-              <div className="admin-field"><label className="admin-label">Puni naziv</label><input className="admin-input" value={form.title} onChange={e=>uf('title',e.target.value)} placeholder="VW Golf VIII 2.0 TDI DSG"/></div>
-              <div className="admin-row">
-                <div className="admin-field"><label className="admin-label">Godina</label><input className="admin-input" type="number" value={form.year} onChange={e=>uf('year',+e.target.value)}/></div>
-                <div className="admin-field"><label className="admin-label">Kilometraža</label><input className="admin-input" type="number" value={form.km} onChange={e=>uf('km',+e.target.value)}/></div>
-              </div>
-              <div className="admin-row">
-                <div className="admin-field"><label className="admin-label">Gorivo</label><select className="admin-input" value={form.fuel} onChange={e=>uf('fuel',e.target.value)}><option>Diesel</option><option>Benzin</option><option>Hybrid</option><option>Električni</option></select></div>
-                <div className="admin-field"><label className="admin-label">Mjenjač</label><select className="admin-input" value={form.trans} onChange={e=>uf('trans',e.target.value)}><option>Manual</option><option>Automatik</option><option>Automatik (DSG)</option><option>Automatik (ZF)</option></select></div>
-              </div>
-              <div className="admin-row">
-                <div className="admin-field"><label className="admin-label">Snaga (kW)</label><input className="admin-input" type="number" value={form.kw} onChange={e=>uf('kw',+e.target.value)}/></div>
-                <div className="admin-field"><label className="admin-label">Cijena (KM)</label><input className="admin-input" type="number" value={form.priceNoVAT} onChange={e=>uf('priceNoVAT',+e.target.value)}/></div>
-              </div>
-              <div className="admin-row">
-                <div className="admin-field"><label className="admin-label">Status</label><select className="admin-input" value={form.status} onChange={e=>uf('status',e.target.value)}><option value="na-lageru">Na lageru</option><option value="u-dolasku">U dolasku</option><option value="na-akciji">Na akciji</option><option value="novo">Novo</option></select></div>
-                <div className="admin-field"><label className="admin-label">Boja</label><input className="admin-input" value={form.color} onChange={e=>uf('color',e.target.value)} placeholder="Crna"/></div>
-              </div>
-              <div className="admin-field"><label className="admin-label">URL slike</label><input className="admin-input" value={form.img} onChange={e=>uf('img',e.target.value)} placeholder="https://..."/></div>
-              <div className="admin-field"><label className="admin-label">Opis</label><textarea className="admin-input" rows="3" value={form.desc} onChange={e=>uf('desc',e.target.value)} style={{resize:'vertical',minHeight:60}}/></div>
-              <button className="admin-submit" onClick={save}>{editId?'💾 Spremi izmjene':'🚗 Objavi vozilo'}</button>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ═══ APP ═══ */
 function App(){
-  const [splash,setSplash]=useState(()=>!window.matchMedia('(prefers-reduced-motion:reduce)').matches);
-  const [view,setView]=useState('home');
-  const [detailVehicle,setDetailVehicle]=useState(null);
-  const [statusFilter,setStatusFilter]=useState('all');
-  const [makeFilter,setMakeFilter]=useState('');
-  const [fuelFilter,setFuelFilter]=useState('');
-  const [yearFilter,setYearFilter]=useState('');
-  const [priceFilter,setPriceFilter]=useState('');
-  const [vehicles,setVehicles]=useState(getVehicles);
-  const [visible,setVisible]=useState(30);
-  const [drawerOpen,setDrawerOpen]=useState(false);
-  const [scrolled,setScrolled]=useState(false);
-  const [showAdmin,setShowAdmin]=useState(false);
-  const [showPin,setShowPin]=useState(false);
-  const [pin,setPin]=useState('');
-  const [pinError,setPinError]=useState('');
-  const [isAdmin,setIsAdmin]=useState(()=>localStorage.getItem('nCars_admin')==='true');
-  const [showBTT,setShowBTT]=useState(false);
-
-  const refresh=()=>setVehicles(getVehicles());
+  const[splash,setSplash]=useState(true);
+  const[solid,setSolid]=useState(false);
+  const[btt,setBtt]=useState(false);
+  const[mob,setMob]=useState(false);
+  const[f,setF]=useState('all');
+  const makes=[...new Set(V.map(v=>v.make))].sort();
+  const list=useMemo(()=>f==='all'?V:f==='feat'?V.filter(v=>v.feat):V.filter(v=>v.make===f),[f]);
 
   useEffect(()=>{
-    const h=()=>{setScrolled(window.scrollY>60);setShowBTT(window.scrollY>500);
-      const p=document.getElementById('scroll-prog');if(p){const d=document.documentElement;p.style.width=((d.scrollTop/(d.scrollHeight-d.clientHeight))*100)+'%';}
+    let scrolling=null;
+    const gL=document.getElementById('glowL'),gR=document.getElementById('glowR');
+    const h=()=>{
+      setSolid(scrollY>80);setBtt(scrollY>500);
+      const d=document.documentElement;document.getElementById('prog').style.width=((d.scrollTop/(d.scrollHeight-d.clientHeight))*100)+'%';
+      // Mobile glow
+      if(window.innerWidth<=768){
+        if(gL)gL.classList.add('active');
+        if(gR)gR.classList.add('active');
+        clearTimeout(scrolling);
+        scrolling=setTimeout(()=>{if(gL)gL.classList.remove('active');if(gR)gR.classList.remove('active');},300);
+      }
     };
-    window.addEventListener('scroll',h);return()=>window.removeEventListener('scroll',h);
+    addEventListener('scroll',h);return()=>removeEventListener('scroll',h);
   },[]);
 
-  // Ctrl+Shift+G admin shortcut
-  useEffect(()=>{
-    const h=(e)=>{if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.key==='G'){e.preventDefault();if(isAdmin){setShowAdmin(true);}else{setShowPin(true);}}};
-    document.addEventListener('keydown',h);return()=>document.removeEventListener('keydown',h);
-  },[isAdmin]);
+  useEffect(()=>{const o=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vis');o.unobserve(x.target);}});},{threshold:0.06});document.querySelectorAll('.reveal').forEach(el=>o.observe(el));return()=>o.disconnect();});
 
-  // Scroll reveal
-  useEffect(()=>{
-    const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.12});
-    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-    return()=>obs.disconnect();
-  });
+  if(splash)return <Splash onDone={()=>setSplash(false)}/>;
 
-  const checkPin=()=>{if(pin==='1234'){setIsAdmin(true);localStorage.setItem('nCars_admin','true');setShowPin(false);setShowAdmin(true);setPin('');}else{setPinError('Pogrešan PIN');setPin('');setTimeout(()=>setPinError(''),2000);}};
+  const mq='VOLKSWAGEN \u00B7 CITROEN \u00B7 MAN \u00B7 DSG \u00B7 4x4 \u00B7 EU UVOZ \u00B7 ZENICA \u00B7 TRANSPORT';
 
-  const featured=vehicles.filter(v=>v.featured&&v.status!=='prodano').slice(0,6);
-  const makes=[...new Set(vehicles.map(v=>v.make))].sort();
-  const fuels=[...new Set(vehicles.map(v=>v.fuel))].sort();
-  const years=[...new Set(vehicles.map(v=>v.year))].sort((a,b)=>b-a);
-  const filtered=useMemo(()=>{
-    let list=vehicles;
-    if(statusFilter==='featured')list=list.filter(v=>v.featured);
-    else if(statusFilter!=='all')list=list.filter(v=>v.status===statusFilter);
-    if(makeFilter)list=list.filter(v=>v.make===makeFilter);
-    if(fuelFilter)list=list.filter(v=>v.fuel===fuelFilter);
-    if(yearFilter)list=list.filter(v=>v.year>=parseInt(yearFilter));
-    if(priceFilter){const max=parseInt(priceFilter);list=list.filter(v=>v.priceNoVAT>0&&v.priceNoVAT<=max);}
-    return list.sort((a,b)=>(a.status==='prodano'?1:0)-(b.status==='prodano'?1:0));
-  },[vehicles,statusFilter,makeFilter,fuelFilter,yearFilter,priceFilter]);
+  return(<>
+    <nav className={`nav ${solid?'solid':''}`}><div className="nav-in">
+      <a href="#" className="n-brand"><img src={L} alt=""/><span>N CARS</span></a>
+      <div className="n-links"><a href="#top" className="n-link">Po&#269;etna</a><a href="#fleet" className="n-link">Vozila</a><a href="#reach" className="n-link">Kontakt</a></div>
+      <div className="n-right"><a href="tel:+38762223064" className="n-icon">&#x1F4DE;</a><a href="https://wa.me/38762223064" className="n-icon">&#x1F4AC;</a><a href="#fleet" className="n-cta">Ponuda</a></div>
+      <button className={`n-ham ${mob?'open':''}`} onClick={()=>setMob(!mob)}><span/><span/><span/></button>
+    </div></nav>
+    <div className={`m-ov ${mob?'open':''}`} onClick={()=>setMob(false)}>
+      <a href="#top">Po&#269;etna</a><a href="#fleet">Vozila</a><a href="#reach">Kontakt</a>
+      <div style={{display:'flex',gap:12,marginTop:16}}><a href="tel:+38762223064" className="btn btn-g" style={{padding:'14px 28px'}}>&#x1F4DE; Pozovi</a><a href="https://wa.me/38762223064" className="btn btn-o" style={{padding:'14px 28px',background:'#25D366',borderColor:'#25D366',color:'#fff'}}>&#x1F4AC;</a></div>
+    </div>
 
-  const navigateClean=(to)=>{setView(to);setVisible(9);setStatusFilter('all');setMakeFilter('');setFuelFilter('');setYearFilter('');setPriceFilter('');window.scrollTo(0,0);setDrawerOpen(false);};
-  const navigateWithFilters=()=>{setView('vozila');setVisible(9);window.scrollTo(0,0);setDrawerOpen(false);};
-
-  return(
-    <>
-      {splash&&<Splash onDone={()=>{setSplash(false);sessionStorage.setItem('nCars_splash','1');}}/>}
-
-      {/* NAV */}
-      <nav className={`nav ${scrolled?'scrolled':''}`}>
-        <div className="nav-inner">
-          <a href="#" className="nav-brand" onClick={(e)=>{e.preventDefault();navigateClean('home');}}>
-            <img src={typeof LOGO_DATA!=='undefined'?LOGO_DATA:''} alt="N CARS"/>
-            <span>N CARS</span>
-            {isAdmin&&<span style={{width:8,height:8,borderRadius:'50%',background:'var(--red)',marginLeft:4}}></span>}
-          </a>
-          <ul className="nav-links">
-            <li><button className={`nav-link ${view==='home'?'active':''}`} onClick={()=>navigateClean('home')}>Početna</button></li>
-            <li><button className={`nav-link ${view==='vozila'?'active':''}`} onClick={()=>navigateClean('vozila')}>Ponuda vozila</button></li>
-            <li><button className="nav-link" onClick={()=>{navigateClean('home');setTimeout(()=>document.getElementById('garancija')?.scrollIntoView({behavior:'smooth'}),100);}}>Garancija</button></li>
-            <li><button className="nav-link" onClick={()=>{navigateClean('home');setTimeout(()=>document.getElementById('kontakt')?.scrollIntoView({behavior:'smooth'}),100);}}>Kontakt</button></li>
-          </ul>
-          <div className="nav-actions">
-            <a href="tel:+38762223064" className="nav-circle red" aria-label="Pozovi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
-            <a href="https://wa.me/38762223064" className="nav-circle green" aria-label="WhatsApp"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 0 0 .613.613l4.458-1.495A11.952 11.952 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.347 0-4.522-.8-6.243-2.143l-.36-.286-3.134 1.051 1.051-3.134-.286-.36A9.956 9.956 0 0 1 2 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg></a>
-          </div>
-          <button className={`nav-toggle ${drawerOpen?'open':''}`} onClick={()=>setDrawerOpen(!drawerOpen)} aria-label="Menu"><span></span><span></span><span></span></button>
+    <section className="hero" id="top">
+      <div className="hero-img"/><div className="hero-grad"/>
+      <div className="hero-in">
+        <div className="hero-text">
+          <div className="hero-pill">&#x2726; Premium Polovna Vozila</div>
+          <h1 className="hero-h">Vozila Koja<br/><em>Govore Za Sebe</em></h1>
+          <p className="hero-p">Uvoz, transport i prodaja provjerenih vozila iz Evropske Unije. Svako vozilo sa kompletnom historijom i garancijom na porijeklo.</p>
+          <div className="hero-btns"><a href="#fleet" className="btn btn-g">Pogledaj Ponudu &rarr;</a><a href="#reach" className="btn btn-o">Kontakt</a></div>
         </div>
-      </nav>
-      <div className={`nav-backdrop ${drawerOpen?'open':''}`} onClick={()=>setDrawerOpen(false)}></div>
-      <aside className={`nav-drawer ${drawerOpen?'open':''}`}>
-        <div className="drawer-header"><div className="nav-brand"><img src={typeof LOGO_DATA!=='undefined'?LOGO_DATA:''} alt="" style={{width:32,height:32}}/><span style={{fontFamily:'var(--font-h)',fontWeight:700,fontSize:15}}>N CARS</span></div><button className="drawer-close" onClick={()=>setDrawerOpen(false)}>×</button></div>
-        <div className="drawer-links">
-          <button className="drawer-link" onClick={()=>navigateClean('home')}>Početna</button>
-          <button className="drawer-link" onClick={()=>navigateClean('vozila')}>Sva vozila</button>
-          <button className="drawer-link" onClick={()=>{navigateClean('vozila');setTimeout(()=>setStatusFilter('na-lageru'),100);}}>Na lageru</button>
-          <button className="drawer-link" onClick={()=>{navigateClean('vozila');setTimeout(()=>setStatusFilter('na-akciji'),100);}}>Na akciji</button>
-          <button className="drawer-link" onClick={()=>{navigateClean('home');setTimeout(()=>document.getElementById('garancija')?.scrollIntoView({behavior:'smooth'}),100);}}>Garancija</button>
-          <button className="drawer-link" onClick={()=>{navigateClean('home');setTimeout(()=>document.getElementById('kontakt')?.scrollIntoView({behavior:'smooth'}),100);}}>Kontakt</button>
-        </div>
-        <div className="drawer-footer">
-          <a href="tel:+38762223064" className="btn btn-red" style={{flex:1,justifyContent:'center'}}>📞 Pozovi</a>
-          <a href="https://wa.me/38762223064" className="btn btn-red" style={{flex:1,justifyContent:'center',background:'#25D366'}}>💬 WhatsApp</a>
-        </div>
-      </aside>
-
-      {/* MAIN CONTENT */}
-      {view==='home'?(
-        <main>
-          {/* HERO */}
-          <section className="hero">
-            <div className="hero-bg"></div><div className="hero-overlay"></div>
-            <div className="hero-content">
-              <div className="hero-warranty">✓ Garancija na porijeklo i kilometražu</div>
-              <h1 className="hero-title"><span>Pronađite </span><span>Vaše </span><span>Novo </span><span>Vozilo</span></h1>
-              <p className="hero-sub">Uvoz iz Njemačke i Zapadne Evrope. Provjerena historija. Garancija na svako vozilo.</p>
-              <div className="hero-stats">
-                <div className="hero-stat"><div className="hero-stat-num">✓</div><div className="hero-stat-label">Garancija na porijeklo i kilometražu</div></div>
-              </div>
-              <div className="hero-btns">
-                <button className="btn btn-red" onClick={()=>navigateClean('vozila')}>Pogledaj ponudu →</button>
-                <button className="btn btn-white" onClick={()=>document.getElementById('kontakt')?.scrollIntoView({behavior:'smooth'})}>Kontaktirajte nas</button>
-              </div>
+        <div className="hero-visual">
+          <div className="hero-card">
+            <div className="hero-card-stat">
+              <div className="hcs"><div className="hcs-n">{V.length}</div><div className="hcs-l">Vozila</div></div>
+              <div className="hero-card-divider"/>
+              <div className="hcs"><div className="hcs-n">EU</div><div className="hcs-l">Uvoz</div></div>
+              <div className="hero-card-divider"/>
+              <div className="hcs"><div className="hcs-n">24h</div><div className="hcs-l">Odgovor</div></div>
             </div>
-            <div className="hero-scroll"><span style={{fontSize:20}}>↓</span><span style={{fontSize:9,letterSpacing:'0.2em'}}>SCROLL</span></div>
-          </section>
-
-          {/* SEARCH */}
-          <div className="search-bar">
-            <div className="search-card">
-              <div className="search-row">
-                <select className="search-select" value={makeFilter} onChange={e=>setMakeFilter(e.target.value)}>
-                  <option value="">Sve marke</option>
-                  {makes.map(m=><option key={m} value={m}>{m}</option>)}
-                </select>
-                <select className="search-select" value={fuelFilter} onChange={e=>setFuelFilter(e.target.value)}>
-                  <option value="">Gorivo</option>
-                  <option value="Dizel">Dizel</option>
-                  <option value="Benzin">Benzin</option>
-                  <option value="Hybrid">Hybrid</option>
-                  <option value="Električni">Električni</option>
-                </select>
-                <input className="search-input" type="number" placeholder="Cijena do (KM)" value={priceFilter} onChange={e=>setPriceFilter(e.target.value)} style={{paddingLeft:'14px'}}/>
-                <input className="search-input" type="number" placeholder="Godina od" value={yearFilter} onChange={e=>setYearFilter(e.target.value)} style={{paddingLeft:'14px'}}/>
-                <button className="search-btn" onClick={navigateWithFilters}>🔍 Pretraži</button>
-              </div>
-              <div className="search-count">Trenutno {vehicles.filter(v=>v.status!=='prodano').length} vozila u ponudi</div>
-            </div>
-          </div>
-
-          {/* FEATURED */}
-          <section className="section section-alt">
-            <div className="section-container">
-              <div className="section-header reveal">
-                <h2 className="section-title">Izdvojena vozila</h2>
-                <p className="section-subtitle">Naš odabir najboljih ponuda ove sedmice</p>
-              </div>
-              <div className="feat-scroll">
-                {featured.map(v=><VehicleCard key={v.id} v={v} onClick={setDetailVehicle} isAdmin={isAdmin} onAdminEdit={(v)=>{setShowAdmin(true);}}/>)}
-              </div>
-              <div style={{textAlign:'right',marginTop:8}}><button className="v-link" style={{display:'inline-flex'}} onClick={()=>navigateClean('vozila')}>Pogledaj sva vozila →</button></div>
-            </div>
-          </section>
-
-          {/* WHY US / WARRANTY */}
-          <section className="section" id="garancija">
-            <div className="section-container">
-              <div className="section-header reveal">
-                <h2 className="section-title">Zašto N CARS?</h2>
-                <p className="section-subtitle">Sigurnost i povjerenje u svakom koraku</p>
-              </div>
-              <div className="why-grid">
-                <div className="why-card reveal"><div className="why-icon">🛡️</div><h3 className="why-title">Garancija na porijeklo i km</h3><p className="why-desc">Garancija na porijeklo i stvarnu kilometražu svakog vozila u ponudi.</p></div>
-                <div className="why-card reveal"><div className="why-icon">📋</div><h3 className="why-title">Provjerena historija</h3><p className="why-desc">Svako vozilo dolazi sa certifikatom proizvođača i kompletnom servisnom historijom iz Njemačke.</p></div>
-                <div className="why-card reveal"><div className="why-icon">🏆</div><h3 className="why-title">Uvoz iz Njemačke</h3><p className="why-desc">Kvalitetna vozila iz Njemačke i Zapadne Evrope. Profesionalan pristup, fer cijene, transparentno poslovanje.</p></div>
-              </div>
-            </div>
-          </section>
-
-          {/* CONTACT */}
-          <section className="section section-alt" id="kontakt">
-            <div className="section-container">
-              <div className="section-header reveal">
-                <h2 className="section-title">Kontaktirajte nas</h2>
-              </div>
-              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:40,maxWidth:900,margin:'0 auto'}}>
-                <div className="reveal">
-                  <div style={{display:'flex',flexDirection:'column',gap:20}}>
-                    <div style={{display:'flex',gap:12,alignItems:'center'}}><span style={{width:40,height:40,borderRadius:'var(--r-md)',background:'var(--red-light)',color:'var(--red)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:18}}>📍</span><div><div style={{fontSize:12,color:'var(--g400)',fontWeight:600}}>Adresa</div><div style={{fontWeight:500,color:'var(--g800)'}}>Zenica, BiH</div></div></div>
-                    <div style={{display:'flex',gap:12,alignItems:'center'}}><span style={{width:40,height:40,borderRadius:'var(--r-md)',background:'var(--red-light)',color:'var(--red)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:18}}>📞</span><div><div style={{fontSize:12,color:'var(--g400)',fontWeight:600}}>Telefon</div><div style={{fontWeight:500,color:'var(--g800)'}}>062 223 064</div></div></div>
-                    <div style={{display:'flex',gap:12,alignItems:'center'}}><span style={{width:40,height:40,borderRadius:'var(--r-md)',background:'var(--red-light)',color:'var(--red)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:18}}>💬</span><div><div style={{fontSize:12,color:'var(--g400)',fontWeight:600}}>WhatsApp</div><div style={{fontWeight:500,color:'var(--g800)'}}>062 223 064</div></div></div>
-                    <div style={{display:'flex',gap:12,alignItems:'center'}}><span style={{width:40,height:40,borderRadius:'var(--r-md)',background:'var(--red-light)',color:'var(--red)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:18}}>🕐</span><div><div style={{fontSize:12,color:'var(--g400)',fontWeight:600}}>Radno vrijeme</div><div style={{fontWeight:500,color:'var(--g800)'}}>Pon–Sub: 10–18h · Ned: Zatvoreno</div></div></div>
-                  </div>
-                </div>
-                <div className="reveal" style={{background:'#fff',borderRadius:'var(--r-xl)',padding:24,border:'1px solid var(--g200)',boxShadow:'var(--shadow-md)'}}>
-                  <form onSubmit={(e)=>{e.preventDefault();alert('Poruka poslana! Kontaktirat ćemo vas uskoro.');}}>
-                    <div style={{marginBottom:14}}><label style={{fontSize:12,fontWeight:600,color:'var(--g600)',display:'block',marginBottom:4}}>Ime i prezime</label><input className="admin-input" required placeholder="Vaše ime"/></div>
-                    <div style={{marginBottom:14}}><label style={{fontSize:12,fontWeight:600,color:'var(--g600)',display:'block',marginBottom:4}}>Telefon</label><input className="admin-input" type="tel" placeholder="+387..."/></div>
-                    <div style={{marginBottom:14}}><label style={{fontSize:12,fontWeight:600,color:'var(--g600)',display:'block',marginBottom:4}}>Poruka</label><textarea className="admin-input" rows="3" placeholder="Vaša poruka..." style={{resize:'vertical'}}/></div>
-                    <button className="btn btn-red" type="submit" style={{width:'100%',justifyContent:'center'}}>Pošalji upit</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </section>
-        </main>
-      ):(
-        /* INVENTORY PAGE */
-        <main>
-          <div className="inv-hero">
-            <div className="inv-hero-content">
-              <h1 style={{fontFamily:'var(--font-h)',fontWeight:700,fontSize:'clamp(24px,4vw,36px)',marginBottom:8}}>Ponuda vozila</h1>
-              <p style={{color:'var(--g400)',fontSize:15}}>Pregledajte našu kompletnu ponudu kvalitetnih vozila</p>
-              <div className="inv-tabs">
-                {[['all','Sva vozila'],['na-lageru','Na lageru'],['featured','Izdvojena'],['na-akciji','Na akciji'],['u-dolasku','U dolasku']].map(([k,l])=>(
-                  <button key={k} className={`inv-tab ${statusFilter===k?'active':''}`} onClick={()=>{setStatusFilter(k);setVisible(9);}}>{l}</button>
-                ))}
-              </div>
-            </div>
-          </div>
-          <div className="inv-back"><a href="#" onClick={(e)=>{e.preventDefault();navigateClean('home');}}>← Nazad na početnu</a></div>
-          <div className="inv-grid">
-            {filtered.length===0?<div className="inv-empty">🚗 Nema rezultata za odabrane filtere.</div>:
-              filtered.slice(0,visible).map(v=><VehicleCard key={v.id} v={v} onClick={setDetailVehicle} isAdmin={isAdmin} onAdminEdit={()=>setShowAdmin(true)}/>)
-            }
-          </div>
-          {visible<filtered.length&&<button className="inv-load-more" onClick={()=>setVisible(v=>v+6)}>Učitaj još vozila</button>}
-        </main>
-      )}
-
-      {/* FOOTER */}
-      <footer className="footer">
-        <div className="footer-inner">
-          <div className="footer-grid">
-            <div>
-              <div className="footer-brand"><img src={typeof LOGO_DATA!=='undefined'?LOGO_DATA:''} alt=""/><span className="footer-brand-name">N CARS</span></div>
-              <p className="footer-desc">Uvoz kvalitetnih vozila iz Njemačke i Zapadne Evrope.</p>
-            </div>
-            <div className="footer-col"><h4>Brzi linkovi</h4><ul><li><button onClick={()=>navigateClean('home')}>Početna</button></li><li><button onClick={()=>navigateClean('vozila')}>Ponuda vozila</button></li><li><button onClick={()=>{navigateClean('home');setTimeout(()=>document.getElementById('garancija')?.scrollIntoView({behavior:'smooth'}),100);}}>Garancija</button></li><li><button onClick={()=>{navigateClean('home');setTimeout(()=>document.getElementById('kontakt')?.scrollIntoView({behavior:'smooth'}),100);}}>Kontakt</button></li></ul></div>
-            <div className="footer-col"><h4>Kontakt</h4><ul><li><span>📍 Zenica, BiH</span></li><li><a href="tel:+38762223064">📞 062 223 064</a></li><li><a href="https://wa.me/38762223064">💬 WhatsApp</a></li></ul></div>
-            <div className="footer-col"><h4>Ponuda</h4><ul><li><button onClick={()=>{navigateClean('vozila');setTimeout(()=>setStatusFilter('na-lageru'),100);}}>Na lageru</button></li><li><button onClick={()=>{navigateClean('vozila');setTimeout(()=>setStatusFilter('na-akciji'),100);}}>Na akciji</button></li><li><button onClick={()=>{navigateClean('vozila');setTimeout(()=>setStatusFilter('u-dolasku'),100);}}>U dolasku</button></li></ul></div>
-          </div>
-          <div className="footer-bottom">
-            <span>© 2025 N CARS. Sva prava zadržana.</span>
-            <div className="footer-bottom-tag"><span className="footer-bottom-dot"></span><span>Uvoz · Transport · Prodaja Vozila</span></div>
+            <div className="hero-card-brands">{makes.map(m=><span key={m} className="hcb">{m}</span>)}</div>
           </div>
         </div>
-      </footer>
-
-      {/* FLOATING CONTACT */}
-      <div className="float-contact">
-        <a href="https://wa.me/38762223064" className="float-btn wa" aria-label="WhatsApp"><svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 0 0 .613.613l4.458-1.495A11.952 11.952 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.347 0-4.522-.8-6.243-2.143l-.36-.286-3.134 1.051 1.051-3.134-.286-.36A9.956 9.956 0 0 1 2 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg></a>
-        <a href="tel:+38762223064" className="float-btn ph" aria-label="Pozovi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
       </div>
+      <div className="hero-scroll"><span style={{fontSize:20}}>&darr;</span><span>Scroll</span></div>
+    </section>
 
-      <button id="btt" className={showBTT?'visible':''} onClick={()=>window.scrollTo({top:0,behavior:'smooth'})} aria-label="Nazad na vrh">↑</button>
+    <div className="mq"><div className="mq-track">{[1,2].map(r=><span key={r}>{mq.split('\u00B7').map((t,i)=><span key={i}><span className="mq-item">{t.trim()}</span><span className="mq-dot"/></span>)}</span>)}</div></div>
 
-      {/* DETAIL MODAL */}
-      {detailVehicle&&<VehicleDetail v={detailVehicle} onClose={()=>setDetailVehicle(null)}/>}
+    <section className="trust">
+      <div className="trust-grid">
+        <div className="trust-card reveal"><div className="trust-icon"><span>&#x1F6E1;</span></div><h3 className="trust-t">Provjerena Vozila</h3><p className="trust-d">Garancija na porijeklo i kilometra&#382;u svakog vozila u ponudi.</p></div>
+        <div className="trust-card reveal"><div className="trust-icon"><span>&#x1F91D;</span></div><h3 className="trust-t">Transparentna Prodaja</h3><p className="trust-d">Fer cijene bez skrivenih tro&#353;kova. Sve informacije unaprijed.</p></div>
+        <div className="trust-card reveal"><div className="trust-icon"><span>&#x1F527;</span></div><h3 className="trust-t">Servisirano</h3><p className="trust-d">Vozila pregledana i servisirana prije isporuke kupcu.</p></div>
+      </div>
+    </section>
 
-      {/* PIN MODAL */}
-      {showPin&&(
-        <div className="pin-overlay" onClick={(e)=>{if(e.target===e.currentTarget){setShowPin(false);setPin('');}}}>
-          <div className="pin-modal">
-            <h3>🔐 Admin Pristup</h3>
-            <p>Unesite 4-cifreni PIN</p>
-            <input className="pin-input" type="password" maxLength={4} value={pin} onChange={(e)=>setPin(e.target.value)} onKeyDown={(e)=>{if(e.key==='Enter')checkPin();}} autoFocus/>
-            {pinError&&<div className="pin-error">{pinError}</div>}
-            <button className="pin-submit" onClick={checkPin}>Pristupi</button>
-            <div className="pin-cancel" onClick={()=>{setShowPin(false);setPin('');}}>Odustani</div>
-          </div>
+    <section className="sec" id="fleet"><div style={{maxWidth:1400,margin:'0 auto'}}>
+      <div className="sec-head reveal"><div className="sec-ey">Ponuda</div><h2 className="sec-t">Kompletna Ponuda Vozila</h2><p className="sec-sub">Kvalitetna polovna vozila iz EU sa provjerenom historijom.</p></div>
+      <div className="filters"><button className={`fchip ${f==='all'?'on':''}`} onClick={()=>setF('all')}>Sva ({V.length})</button><button className={`fchip ${f==='feat'?'on':''}`} onClick={()=>setF('feat')}>Izdvojena</button>{makes.map(m=><button key={m} className={`fchip ${f===m?'on':''}`} onClick={()=>setF(m)}>{m}</button>)}</div>
+      <div className="vgrid">{list.map((v,i)=><Card key={v.id} v={v} i={i}/>)}</div>
+      {list.length===0&&<div style={{textAlign:'center',padding:80,color:'var(--d)'}}>Nema rezultata.</div>}
+    </div></section>
+
+    <section className="contact" id="reach"><div className="ct-grid">
+      <div className="ct-left reveal">
+        <h2>Razgovarajmo o Va&#353;em <em>Novom Vozilu</em></h2>
+        <p>Slobodno nas kontaktirajte za informacije o vozilima, uvozu ili transportu.</p>
+        <div className="ct-items">
+          <div className="ct-item"><div className="ct-icon"><span>&#x1F4DE;</span></div><div><div className="ct-lb">Telefon</div><div className="ct-v"><a href="tel:+38762223064">062 223 064</a></div></div></div>
+          <div className="ct-item"><div className="ct-icon"><span>&#x1F4AC;</span></div><div><div className="ct-lb">WhatsApp</div><div className="ct-v"><a href="https://wa.me/38762223064">062 223 064</a></div></div></div>
+          <div className="ct-item"><div className="ct-icon"><span>&#x1F4CD;</span></div><div><div className="ct-lb">Lokacija</div><div className="ct-v">Zenica, BiH</div></div></div>
+          <div className="ct-item"><div className="ct-icon"><span>&#x1F554;</span></div><div><div className="ct-lb">Radno Vrijeme</div><div className="ct-v">Pon&#8211;Sub: 10&#8211;18h &middot; Ned: Zatvoreno</div></div></div>
         </div>
-      )}
+      </div>
+      <div className="reveal"><form className="ct-form" onSubmit={e=>{e.preventDefault();alert('Poruka poslana!')}}>
+        <div className="ct-ft">Po&#353;alji Upit</div>
+        <div className="ct-ff"><label className="ct-fl">Ime</label><input className="ct-fi" placeholder="Va&#353;e ime" required/></div>
+        <div className="ct-ff"><label className="ct-fl">Telefon</label><input className="ct-fi" type="tel" placeholder="06X XXX XXX"/></div>
+        <div className="ct-ff"><label className="ct-fl">Poruka</label><textarea className="ct-fi" rows={4} placeholder="Va&#353;a poruka..." style={{resize:'vertical'}}/></div>
+        <button type="submit" className="ct-fs">Po&#353;alji &rarr;</button>
+      </form></div>
+    </div></section>
 
-      {/* ADMIN PANEL */}
-      {showAdmin&&<AdminPanel onClose={()=>setShowAdmin(false)} vehicles={vehicles} refresh={refresh}/>}
-    </>
-  );
+    <footer className="foot"><div className="foot-in">
+      <div className="foot-b"><img src={L} alt=""/><span>N CARS</span></div>
+      <div className="foot-m">Uvoz, Transport i Prodaja Vozila<br/>Zenica, BiH &middot; 062 223 064<br/>&copy; 2026 N Cars &mdash; Serious About Cars</div>
+      <div className="foot-s"><a href="#" className="n-icon">&#x1F4D8;</a><a href="#" className="n-icon">&#x1F4F7;</a></div>
+    </div></footer>
+
+    <div className="flt"><a href="https://wa.me/38762223064" className="wa">&#x1F4AC;</a><a href="tel:+38762223064" className="ph">&#x1F4DE;</a></div>
+    <button id="btt" className={btt?'on':''} onClick={()=>scrollTo({top:0,behavior:'smooth'})}>&uarr;</button>
+  </>);
 }
-
 ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
 </script>
 </body>
