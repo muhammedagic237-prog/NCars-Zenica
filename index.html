@@ -502,17 +502,8 @@ function App(){
           <p className="hero-p">Uvoz, transport i prodaja provjerenih vozila iz Evropske Unije. Svako vozilo sa kompletnom historijom i garancijom na porijeklo.</p>
           <div className="hero-btns"><a href="#fleet" className="btn btn-g">Pogledaj Ponudu &rarr;</a><a href="#reach" className="btn btn-o">Kontakt</a></div>
         </div>
-        <div className="hero-visual">
-          <div className="hero-card">
-            <div className="hero-card-stat">
-              <div className="hcs"><div className="hcs-n">{V.length}</div><div className="hcs-l">Vozila</div></div>
-              <div className="hero-card-divider"/>
-              <div className="hcs"><div className="hcs-n">EU</div><div className="hcs-l">Uvoz</div></div>
-              <div className="hero-card-divider"/>
-              <div className="hcs"><div className="hcs-n">24h</div><div className="hcs-l">Odgovor</div></div>
-            </div>
-            <div className="hero-card-brands">{makes.map(m=><span key={m} className="hcb">{m}</span>)}</div>
-          </div>
+        <div className="hero-visual" style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+          <img src={L} alt="N Cars" style={{width:'clamp(200px,22vw,340px)',height:'auto',objectFit:'contain',filter:'drop-shadow(0 0 60px rgba(212,168,83,0.2)) drop-shadow(0 20px 40px rgba(0,0,0,0.4))',animation:'heroFloat 8s ease-in-out infinite'}}/>
         </div>
       </div>
       <div className="hero-scroll"><span style={{fontSize:20}}>&darr;</span><span>Scroll</span></div>
