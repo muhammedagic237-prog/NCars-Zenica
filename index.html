@@ -181,6 +181,51 @@
 @media(max-width:1024px){.vgrid{grid-template-columns:repeat(2,1fr)}.ct-grid{grid-template-columns:1fr}.hero-in{grid-template-columns:1fr}.hero-visual{display:none}.trust-grid{grid-template-columns:1fr;gap:16px}}
 @media(max-width:768px){.n-links,.n-cta{display:none}.n-ham{display:flex}.vgrid{grid-template-columns:1fr}.sec,.contact,.trust{padding:60px 20px}.nav-in{padding:0 20px}.hero-in{padding:0 20px}.foot-in,.foot{padding-left:20px;padding-right:20px}.filters{overflow-x:auto;flex-wrap:nowrap;padding-bottom:8px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}#splash{display:none!important}}
+
+/* ADMIN */
+.pin-ov{position:fixed;inset:0;z-index:10002;background:rgba(0,0,0,0.8);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center}
+.pin-box{background:var(--card);border:1px solid var(--brd);border-radius:20px;padding:40px;width:90%;max-width:340px;text-align:center}
+.pin-box h3{font-weight:700;font-size:20px;margin-bottom:6px}.pin-box p{font-size:13px;color:var(--m);margin-bottom:24px}
+.pin-inp{width:140px;text-align:center;padding:14px;font-size:28px;letter-spacing:12px;font-family:var(--mono);border:2px solid var(--brd);border-radius:12px;background:var(--bg);color:var(--t);margin:0 auto 16px;display:block;outline:none}
+.pin-inp:focus{border-color:var(--gold)}
+.pin-err{color:#EF4444;font-size:12px;font-weight:600;margin-bottom:12px}
+.pin-btn{padding:12px 32px;background:var(--gold);color:#000;border-radius:10px;font-weight:700;font-size:13px;letter-spacing:1px;border:none;cursor:pointer}.pin-btn:hover{background:#E8BC6A}
+.pin-cancel{font-size:12px;color:var(--m);margin-top:12px;cursor:pointer;background:none;border:none;font-family:inherit}.pin-cancel:hover{color:var(--t)}
+
+.adm-ov{position:fixed;inset:0;z-index:10003;background:rgba(0,0,0,0.6);backdrop-filter:blur(6px);display:flex;justify-content:flex-end}
+.adm-panel{width:85vw;max-width:860px;background:var(--card);height:100%;overflow-y:auto;box-shadow:-12px 0 40px rgba(0,0,0,0.4);animation:fadeUp 0.3s var(--e);border-left:1px solid var(--brd)}
+.adm-panel::before{content:'';position:sticky;top:0;display:block;height:3px;background:linear-gradient(90deg,var(--orange),var(--gold),var(--cyan));z-index:1}
+.adm-head{padding:20px 24px;border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between;position:sticky;top:3px;background:var(--card);z-index:1}
+.adm-title{font-weight:700;font-size:18px;display:flex;align-items:center;gap:10px}
+.adm-badge{background:var(--gold);color:#000;padding:2px 8px;border-radius:6px;font-size:9px;font-weight:700;letter-spacing:1px}
+.adm-close{width:36px;height:36px;border-radius:8px;background:var(--bg);border:1px solid var(--brd);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--m);cursor:pointer}.adm-close:hover{color:var(--t)}
+.adm-body{padding:24px}
+.adm-tabs{display:flex;gap:8px;margin-bottom:24px;border-bottom:1px solid var(--brd);padding-bottom:12px}
+.adm-tab{padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;color:var(--m);cursor:pointer;transition:all 0.2s}.adm-tab.on{background:var(--gold);color:#000}
+.adm-field{margin-bottom:14px}
+.adm-label{display:block;font-size:10px;font-weight:600;color:var(--d);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px}
+.adm-input{width:100%;padding:10px 14px;border:1px solid var(--brd);border-radius:8px;font-size:14px;background:var(--bg);color:var(--t);outline:none;font-family:inherit;transition:border 0.2s}.adm-input:focus{border-color:var(--gold)}
+.adm-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.adm-submit{width:100%;padding:14px;background:var(--gold);color:#000;border-radius:10px;font-weight:700;font-size:13px;letter-spacing:1px;border:none;cursor:pointer;margin-top:8px}.adm-submit:hover{background:#E8BC6A}
+.adm-table{width:100%;border-collapse:collapse}
+.adm-table th{text-align:left;padding:10px 12px;font-size:9px;font-weight:700;color:var(--d);text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid var(--brd)}
+.adm-table td{padding:10px 12px;border-bottom:1px solid var(--brd);font-size:13px;vertical-align:middle}
+.adm-table tr:hover{background:var(--bg)}
+.adm-table img{width:50px;height:35px;object-fit:cover;border-radius:4px}
+.adm-acts{display:flex;gap:4px}
+.adm-act{padding:4px 8px;border-radius:6px;font-size:10px;font-weight:600;border:1px solid var(--brd);background:var(--bg);color:var(--m);cursor:pointer;transition:all 0.2s}
+.adm-act:hover{border-color:var(--gold);color:var(--gold)}
+.adm-act.del:hover{border-color:#EF4444;color:#EF4444}
+.adm-act.sold:hover{border-color:var(--orange);color:var(--orange)}
+.adm-status{padding:3px 8px;border-radius:20px;font-size:9px;font-weight:700}
+.adm-status.active{background:var(--gdim);color:var(--gold)}
+.adm-status.sold{background:rgba(239,68,68,0.1);color:#EF4444}
+.adm-olx{margin-bottom:20px;padding:16px;background:var(--bg);border:1px dashed var(--brd);border-radius:12px}
+.adm-olx-title{font-size:12px;font-weight:600;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.adm-olx-row{display:flex;gap:8px}
+.adm-olx-input{flex:1;padding:10px 14px;border:1px solid var(--brd);border-radius:8px;background:var(--card);color:var(--t);font-size:13px;outline:none}.adm-olx-input:focus{border-color:var(--gold)}
+.adm-olx-btn{padding:10px 18px;background:var(--gold);color:#000;border-radius:8px;font-weight:700;font-size:12px;border:none;cursor:pointer;white-space:nowrap}.adm-olx-btn:hover{background:#E8BC6A}
+.toast{position:fixed;top:80px;right:20px;background:var(--card);border-left:3px solid var(--gold);border-radius:10px;padding:14px 20px;font-size:13px;font-weight:600;box-shadow:0 8px 32px rgba(0,0,0,0.4);z-index:10004;animation:fadeUp 0.3s var(--e);display:flex;align-items:center;gap:10px;max-width:320px}
 </style>
 </head>
 <body>
@@ -205,6 +250,21 @@ const V=[
 {id:'72261660',make:'MAN',model:'TGL 8 210',title:'KAMION MAN TGL 8 210',year:2009,km:660000,fuel:'Dizel',kw:0,trans:'Manual',price:19500,feat:false,img:'https://d4n0y8dshd77z.cloudfront.net/listings/72261660/lg/img-1763043954-384dc3b6ae1b.jpeg'},
 {id:'74205191',make:'Volkswagen',model:'Golf 7',title:'VW GOLF VII 2017 EURO6',year:2017,km:231573,fuel:'Dizel',kw:81,trans:'Manual',price:16900,feat:true,img:'https://d4n0y8dshd77z.cloudfront.net/listings/74205191/lg/img-1770641490-02ff8761b4f9.jpeg'}
 ];
+// ═══ VEHICLE DATA MANAGEMENT ═══
+function getAllVehicles(){
+  const added=JSON.parse(localStorage.getItem('nc_vehicles')||'[]');
+  const sold=JSON.parse(localStorage.getItem('nc_sold')||'[]');
+  const deleted=JSON.parse(localStorage.getItem('nc_deleted')||'[]');
+  const base=V.filter(v=>!deleted.includes(v.id)).map(v=>({...v,status:sold.includes(v.id)?'prodano':'na-lageru'}));
+  const custom=added.filter(v=>!deleted.includes(v.id)).map(v=>({...v,status:sold.includes(v.id)?'prodano':v.status||'na-lageru'}));
+  return[...custom,...base];
+}
+function addVehicle(v){const list=JSON.parse(localStorage.getItem('nc_vehicles')||'[]');list.unshift(v);localStorage.setItem('nc_vehicles',JSON.stringify(list));}
+function deleteVehicle(id){const d=JSON.parse(localStorage.getItem('nc_deleted')||'[]');if(!d.includes(id))d.push(id);localStorage.setItem('nc_deleted',JSON.stringify(d));}
+function markSold(id){const s=JSON.parse(localStorage.getItem('nc_sold')||'[]');if(!s.includes(id))s.push(id);localStorage.setItem('nc_sold',JSON.stringify(s));}
+function unmarkSold(id){let s=JSON.parse(localStorage.getItem('nc_sold')||'[]');s=s.filter(x=>x!==id);localStorage.setItem('nc_sold',JSON.stringify(s));}
+function updateVehicle(id,data){let list=JSON.parse(localStorage.getItem('nc_vehicles')||'[]');list=list.map(v=>v.id===id?{...v,...data}:v);localStorage.setItem('nc_vehicles',JSON.stringify(list));}
+
 const fP=n=>n>0?n.toLocaleString('de-DE')+' KM':'Na upit';
 const fK=n=>n.toLocaleString('de-DE');
 
@@ -223,7 +283,7 @@ const Card=memo(({v,i})=>(
   <div className="vc reveal" onClick={()=>window.open('https://olx.ba/artikal/'+v.id,'_blank')} style={{transitionDelay:i*0.06+'s'}}>
     <div className="vc-imgwrap">
       <div className="vc-img" style={{backgroundImage:`url('${v.img}')`}}/>
-      <div className="vc-badge">Na lageru</div>
+      <div className="vc-badge">{v.status==='prodano'?'Prodano':'Na lageru'}</div>
       <div className="vc-ov"><span className="vc-ov-price">{fP(v.price)}</span><span className="vc-ov-btn">Pogledaj &rarr;</span></div>
     </div>
     <div className="vc-body">
@@ -235,14 +295,168 @@ const Card=memo(({v,i})=>(
   </div>
 ));
 
+// ═══ ADMIN PANEL COMPONENT ═══
+function AdminPanel({onClose,vehicles,refresh}){
+  const[tab,setTab]=useState('manage');
+  const[form,setForm]=useState({title:'',make:'',model:'',year:2020,km:0,fuel:'Dizel',kw:0,trans:'Manual',price:0,img:'',feat:false});
+  const[editId,setEditId]=useState(null);
+  const[olxUrl,setOlxUrl]=useState('');
+  const[olxLoading,setOlxLoading]=useState(false);
+  const uf=(k,v)=>setForm(p=>({...p,[k]:v}));
+
+  const saveVehicle=()=>{
+    if(!form.title){alert('Unesite naziv vozila');return;}
+    const v={...form,id:editId||('c-'+Date.now()),ks:Math.round(form.kw*1.36)};
+    if(editId){updateVehicle(editId,v);}else{addVehicle(v);}
+    refresh();setEditId(null);setTab('manage');
+    setForm({title:'',make:'',model:'',year:2020,km:0,fuel:'Dizel',kw:0,trans:'Manual',price:0,img:'',feat:false});
+    showToast('Vozilo '+(editId?'azurirano':'dodano'));
+  };
+
+  const startEdit=(v)=>{setForm({title:v.title,make:v.make,model:v.model,year:v.year,km:v.km,fuel:v.fuel,kw:v.kw||0,trans:v.trans,price:v.price,img:v.img,feat:v.feat||false});setEditId(v.id);setTab('add');};
+  const handleSold=(v)=>{if(v.status==='prodano'){unmarkSold(v.id);}else{markSold(v.id);}refresh();showToast('Status azuriran');};
+  const handleDelete=(v)=>{if(!confirm('Obrisati '+v.title+'?'))return;deleteVehicle(v.id);refresh();showToast('Vozilo obrisano');};
+
+  const importOlx=()=>{
+    const match=olxUrl.match(/artikal\/(\d+)/);
+    if(!match){alert('Neispravan OLX link');return;}
+    const id=match[1];
+    const imgUrl='https://d4n0y8dshd77z.cloudfront.net/listings/'+id+'/lg/img-placeholder.jpeg';
+    setForm({title:'OLX Vozilo #'+id,make:'',model:'',year:2020,km:0,fuel:'Dizel',kw:0,trans:'Manual',price:0,img:imgUrl,feat:false});
+    setEditId(null);setTab('add');setOlxUrl('');
+    showToast('OLX ID preuzet - popunite detalje');
+  };
+
+  const active=vehicles.filter(v=>v.status!=='prodano');
+  const sold=vehicles.filter(v=>v.status==='prodano');
+
+  return(
+    <div className="adm-ov" onClick={e=>{if(e.target===e.currentTarget)onClose();}}>
+      <div className="adm-panel">
+        <div className="adm-head">
+          <div className="adm-title">Admin Panel <span className="adm-badge">ADMIN</span></div>
+          <button className="adm-close" onClick={onClose}>&times;</button>
+        </div>
+        <div className="adm-body">
+          <div className="adm-tabs">
+            <button className={`adm-tab ${tab==='manage'?'on':''}`} onClick={()=>setTab('manage')}>Upravljaj ({vehicles.length})</button>
+            <button className={`adm-tab ${tab==='add'?'on':''}`} onClick={()=>{setTab('add');setEditId(null);}}>Dodaj Vozilo</button>
+            <button className={`adm-tab ${tab==='sold'?'on':''}`} onClick={()=>setTab('sold')}>Prodano ({sold.length})</button>
+          </div>
+
+          {tab==='manage'&&(<div>
+            <div className="adm-olx">
+              <div className="adm-olx-title">&#x1F517; Brzi Uvoz sa OLX.ba</div>
+              <div className="adm-olx-row">
+                <input className="adm-olx-input" value={olxUrl} onChange={e=>setOlxUrl(e.target.value)} placeholder="https://olx.ba/artikal/12345678" onKeyDown={e=>{if(e.key==='Enter')importOlx();}}/>
+                <button className="adm-olx-btn" onClick={importOlx}>Uvezi</button>
+              </div>
+            </div>
+            <div style={{overflowX:'auto'}}>
+              <table className="adm-table">
+                <thead><tr><th>Slika</th><th>Naziv</th><th>Cijena</th><th>God.</th><th>Status</th><th>Akcije</th></tr></thead>
+                <tbody>
+                  {active.map(v=>(
+                    <tr key={v.id}>
+                      <td><img src={v.img} alt="" style={{background:'var(--bg)'}}/></td>
+                      <td style={{fontWeight:600,maxWidth:180,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{v.title}</td>
+                      <td style={{fontFamily:'var(--mono)',fontWeight:700,color:'var(--gold)'}}>{fP(v.price)}</td>
+                      <td>{v.year}</td>
+                      <td><span className="adm-status active">Aktivan</span></td>
+                      <td><div className="adm-acts">
+                        <button className="adm-act" onClick={()=>startEdit(v)}>&#x270F;&#xFE0F;</button>
+                        <button className="adm-act sold" onClick={()=>handleSold(v)}>&#x2705;</button>
+                        <button className="adm-act del" onClick={()=>handleDelete(v)}>&#x1F5D1;&#xFE0F;</button>
+                      </div></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>)}
+
+          {tab==='sold'&&(<div>
+            {sold.length===0?<div style={{textAlign:'center',padding:40,color:'var(--d)'}}>Nema prodanih vozila</div>:
+            <table className="adm-table">
+              <thead><tr><th>Slika</th><th>Naziv</th><th>Cijena</th><th>Akcije</th></tr></thead>
+              <tbody>
+                {sold.map(v=>(
+                  <tr key={v.id} style={{opacity:0.6}}>
+                    <td><img src={v.img} alt="" style={{filter:'grayscale(50%)'}}/></td>
+                    <td style={{fontWeight:600}}>{v.title}</td>
+                    <td style={{fontFamily:'var(--mono)',color:'var(--d)'}}>{fP(v.price)}</td>
+                    <td><div className="adm-acts">
+                      <button className="adm-act" onClick={()=>handleSold(v)} title="Vrati u prodaju">&#x21A9;&#xFE0F;</button>
+                      <button className="adm-act del" onClick={()=>handleDelete(v)}>&#x1F5D1;&#xFE0F;</button>
+                    </div></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>}
+          </div>)}
+
+          {tab==='add'&&(<div>
+            <h3 style={{fontWeight:700,fontSize:16,marginBottom:18}}>{editId?'Uredi Vozilo':'Dodaj Novo Vozilo'}</h3>
+            <div className="adm-field"><label className="adm-label">Naziv</label><input className="adm-input" value={form.title} onChange={e=>uf('title',e.target.value)} placeholder="VW GOLF 7 2.0 TDI 110kw"/></div>
+            <div className="adm-row">
+              <div className="adm-field"><label className="adm-label">Marka</label><input className="adm-input" value={form.make} onChange={e=>uf('make',e.target.value)} placeholder="Volkswagen"/></div>
+              <div className="adm-field"><label className="adm-label">Model</label><input className="adm-input" value={form.model} onChange={e=>uf('model',e.target.value)} placeholder="Golf 7"/></div>
+            </div>
+            <div className="adm-row">
+              <div className="adm-field"><label className="adm-label">Godina</label><input className="adm-input" type="number" value={form.year} onChange={e=>uf('year',+e.target.value)}/></div>
+              <div className="adm-field"><label className="adm-label">Kilometra&#382;a</label><input className="adm-input" type="number" value={form.km} onChange={e=>uf('km',+e.target.value)}/></div>
+            </div>
+            <div className="adm-row">
+              <div className="adm-field"><label className="adm-label">Gorivo</label><select className="adm-input" value={form.fuel} onChange={e=>uf('fuel',e.target.value)}><option>Dizel</option><option>Benzin</option><option>Hybrid</option></select></div>
+              <div className="adm-field"><label className="adm-label">Mjenja&#269;</label><select className="adm-input" value={form.trans} onChange={e=>uf('trans',e.target.value)}><option>Manual</option><option>DSG</option><option>Automatik</option></select></div>
+            </div>
+            <div className="adm-row">
+              <div className="adm-field"><label className="adm-label">Snaga (kW)</label><input className="adm-input" type="number" value={form.kw} onChange={e=>uf('kw',+e.target.value)}/></div>
+              <div className="adm-field"><label className="adm-label">Cijena (KM)</label><input className="adm-input" type="number" value={form.price} onChange={e=>uf('price',+e.target.value)}/></div>
+            </div>
+            <div className="adm-field"><label className="adm-label">URL Slike</label><input className="adm-input" value={form.img} onChange={e=>uf('img',e.target.value)} placeholder="https://..."/></div>
+            {form.img&&<div style={{marginBottom:14}}><img src={form.img} alt="" style={{height:80,borderRadius:8,objectFit:'cover',background:'var(--bg)'}}/></div>}
+            <div className="adm-field" style={{display:'flex',alignItems:'center',gap:10}}>
+              <input type="checkbox" checked={form.feat} onChange={e=>uf('feat',e.target.checked)} id="feat-check" style={{accentColor:'var(--gold)',width:18,height:18}}/>
+              <label htmlFor="feat-check" style={{fontSize:13,color:'var(--m)'}}>Izdvojeno vozilo</label>
+            </div>
+            <button className="adm-submit" onClick={saveVehicle}>{editId?'&#x1F4BE; Spremi Izmjene':'&#x1F697; Objavi Vozilo'}</button>
+          </div>)}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function showToast(msg){
+  const t=document.createElement('div');t.className='toast';t.innerHTML='&#x2713; '+msg;
+  document.body.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity 0.3s';setTimeout(()=>t.remove(),300);},2500);
+}
+
 function App(){
   const[splash,setSplash]=useState(true);
   const[solid,setSolid]=useState(false);
   const[btt,setBtt]=useState(false);
   const[mob,setMob]=useState(false);
   const[f,setF]=useState('all');
-  const makes=[...new Set(V.map(v=>v.make))].sort();
-  const list=useMemo(()=>f==='all'?V:f==='feat'?V.filter(v=>v.feat):V.filter(v=>v.make===f),[f]);
+  const[vehicles,setVehicles]=useState(getAllVehicles);
+  const[showPin,setShowPin]=useState(false);
+  const[showAdmin,setShowAdmin]=useState(false);
+  const[isAdmin,setIsAdmin]=useState(()=>localStorage.getItem('nc_admin')==='true');
+  const[pin,setPin]=useState('');
+  const[pinErr,setPinErr]=useState('');
+  const refresh=()=>setVehicles(getAllVehicles());
+  const activeVehicles=vehicles.filter(v=>v.status!=='prodano');
+  const makes=[...new Set(activeVehicles.map(v=>v.make))].sort();
+  const list=useMemo(()=>{let l=activeVehicles;if(f==='feat')return l.filter(v=>v.feat);if(f!=='all')return l.filter(v=>v.make===f);return l;},[f,vehicles]);
+
+  // Ctrl+Shift+G admin shortcut
+  useEffect(()=>{
+    const h=e=>{if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.key==='G'){e.preventDefault();if(isAdmin){setShowAdmin(true);}else{setShowPin(true);}}if(e.key==='Escape'){setShowPin(false);setShowAdmin(false);setPin('');}};
+    document.addEventListener('keydown',h);return()=>document.removeEventListener('keydown',h);
+  },[isAdmin]);
+
+  const checkPin=()=>{if(pin==='1234'){setIsAdmin(true);localStorage.setItem('nc_admin','true');setShowPin(false);setShowAdmin(true);setPin('');}else{setPinErr('Pogresan PIN');setPin('');setTimeout(()=>setPinErr(''),2000);}};
 
   useEffect(()=>{
     let scrolling=null;
@@ -316,7 +530,7 @@ function App(){
 
     <section className="sec" id="fleet"><div style={{maxWidth:1400,margin:'0 auto'}}>
       <div className="sec-head reveal"><div className="sec-ey">Ponuda</div><h2 className="sec-t">Kompletna Ponuda Vozila</h2><p className="sec-sub">Kvalitetna polovna vozila iz EU sa provjerenom historijom.</p></div>
-      <div className="filters"><button className={`fchip ${f==='all'?'on':''}`} onClick={()=>setF('all')}>Sva ({V.length})</button><button className={`fchip ${f==='feat'?'on':''}`} onClick={()=>setF('feat')}>Izdvojena</button>{makes.map(m=><button key={m} className={`fchip ${f===m?'on':''}`} onClick={()=>setF(m)}>{m}</button>)}</div>
+      <div className="filters"><button className={`fchip ${f==='all'?'on':''}`} onClick={()=>setF('all')}>Sva ({activeVehicles.length})</button><button className={`fchip ${f==='feat'?'on':''}`} onClick={()=>setF('feat')}>Izdvojena</button>{makes.map(m=><button key={m} className={`fchip ${f===m?'on':''}`} onClick={()=>setF(m)}>{m}</button>)}</div>
       <div className="vgrid">{list.map((v,i)=><Card key={v.id} v={v} i={i}/>)}</div>
       {list.length===0&&<div style={{textAlign:'center',padding:80,color:'var(--d)'}}>Nema rezultata.</div>}
     </div></section>
@@ -344,11 +558,26 @@ function App(){
     <footer className="foot"><div className="foot-in">
       <div className="foot-b"><img src={L} alt=""/><span>N CARS</span></div>
       <div className="foot-m">Uvoz, Transport i Prodaja Vozila<br/>Zenica, BiH &middot; 062 223 064<br/>&copy; 2026 N Cars &mdash; Serious About Cars</div>
-      <div className="foot-s"><a href="#" className="n-icon">&#x1F4D8;</a><a href="#" className="n-icon">&#x1F4F7;</a></div>
+      <div className="foot-s"></div>
     </div></footer>
 
     <div className="flt"><a href="https://wa.me/38762223064" className="wa">&#x1F4AC;</a><a href="tel:+38762223064" className="ph">&#x1F4DE;</a></div>
     <button id="btt" className={btt?'on':''} onClick={()=>scrollTo({top:0,behavior:'smooth'})}>&uarr;</button>
+
+    {/* PIN MODAL */}
+    {showPin&&<div className="pin-ov" onClick={e=>{if(e.target===e.currentTarget){setShowPin(false);setPin('');}}}>
+      <div className="pin-box">
+        <h3>&#x1F510; Admin</h3>
+        <p>Unesite 4-cifreni PIN</p>
+        <input className="pin-inp" type="password" maxLength={4} value={pin} onChange={e=>setPin(e.target.value)} onKeyDown={e=>{if(e.key==='Enter')checkPin();}} autoFocus/>
+        {pinErr&&<div className="pin-err">{pinErr}</div>}
+        <button className="pin-btn" onClick={checkPin}>Pristupi</button><br/>
+        <button className="pin-cancel" onClick={()=>{setShowPin(false);setPin('');}}>Odustani</button>
+      </div>
+    </div>}
+
+    {/* ADMIN PANEL */}
+    {showAdmin&&<AdminPanel onClose={()=>setShowAdmin(false)} vehicles={vehicles} refresh={refresh}/>}
   </>);
 }
 ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
